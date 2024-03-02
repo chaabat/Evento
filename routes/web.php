@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UtilisateurController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +32,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
+//admin
+// Route::middleware(['can:admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+// });
+
+
+
+//utilisateur
+// Route::middleware(['can:utilisateur'])->group(function () {
+    Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur.home');
+// })
+
+
+
+//organisateur
+// Route::middleware(['can:organisateur'])->group(function () {
+    Route::get('/organisateur', [OrganisateurController::class, 'index'])->name('organisateur.home');
+// })
