@@ -3,7 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
+use App\Models\Utilisateur;
+use App\Models\Organisateur;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +23,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'utilisateur']);
+        Role::create(['name' => 'organisateur']);
     }
 }
