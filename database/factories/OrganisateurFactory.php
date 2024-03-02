@@ -1,13 +1,13 @@
 <?php
+
 namespace Database\Factories;
 use App\Models\User;
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Organisateur>
  */
-class AdminFactory extends Factory
+class OrganisateurFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,7 @@ class AdminFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create([
-                'email' => 'admin@gmail.com'
+                'email' => 'organisateur@gmail.com'
             ])
         ];
     }
