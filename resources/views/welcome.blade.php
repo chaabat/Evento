@@ -72,22 +72,22 @@
                     <img src="{{ asset('photos/event.jpg') }}" class="h-[100px] " alt="">
 
                     <div class="mt-3 md:flex md:items-center md:-mx-2">
-                        <a href="#"
+                        <a href="{{ route('register.organisateur') }}"
                             class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                             <div class="flex items-center">
                                 <img src="{{ asset('photos/voyageur.png') }}" class="h-8 w-8" alt="">
 
                                 <span class="mx-2">
-                                    Passager
+                                    Organisateur
                                 </span>
                             </div>
                         </a>
-                        <a href="#"
+                        <a href="{{ route('register.utilisateur') }}"
                             class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                             <div class="flex items-center">
                                 <img src="{{ asset('photos/taxi.png') }}" class="h-8 w-8" alt="">
                                 <span class="mx-2">
-                                    Chauffeur
+                                    Utilisateur
                                 </span>
                             </div>
                         </a>

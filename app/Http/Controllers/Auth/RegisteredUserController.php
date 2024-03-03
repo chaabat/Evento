@@ -13,16 +13,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function createOrganisateur(): View
     {
-        return view('auth.register');
+        return view('auth.registerOrganisateur');
+    }
+
+    public function createUtilisateur(): View
+    {
+        return view('auth.registerUtilisateur');
     }
 
     /**
@@ -30,22 +34,29 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function storeOrganisateur(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'role' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'picture' => $request->picture,
         ]);
+        if ($request->hasFile('picture')) {
+            $data['picture'] =  $request->file('picture')->store('photos', "public"); 
+           
+        }
         
-        $user->assignRole('organisateur');
-        $user->organisateur()->create();
+     
 
         event(new Registered($user));
         Auth::login($user);
@@ -53,31 +64,37 @@ class RegisteredUserController extends Controller
         return redirect()->route('organisateur');
     }
 
-    // public function store(Request $request)
-    // {
+    public function storeUtilisateur(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'role' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'picture' => $request->picture,
+        ]);
+        if ($request->hasFile('picture')) {
+            $data['picture'] =  $request->file('picture')->store('photos', "public"); 
+           
+        }
+        
+     
+
+        event(new Registered($user));
+        Auth::login($user);
+
+        return redirect()->route('utilisateur');
+    }
 
 
-    //     $attributes = $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //     ]);
-
-
-       
-
-    //     $user = User::create($attributes);
-
-    //     $user->assignRole('admin');
-
-    //     $user->artisan()->create();
-    //     Auth::login($user);
-
-    //     return redirect('/');
-    // }
-
-
-
-
+    
 
 }

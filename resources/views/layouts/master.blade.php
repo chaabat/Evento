@@ -10,15 +10,17 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    
+
 </head>
 
-<body >
-   
-@yield('login')
-@yield('forgot-password')
-@yield('confirmation')
+<body>
 
-    </body>
+    @yield('login')
+    @yield('forgot-password')
+    @yield('confirmation')
+    @yield('registerOrganisateur')
+    @yield('registerUtilisateur')
 
-    </html>
+</body>
+
+</html>
