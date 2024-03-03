@@ -58,9 +58,27 @@
         <a href=""><img src="{{ asset('photos/logoo.png') }}" alt="Logo"></a>
 
         <div class="w-full sm:max-w-md p-5 mx-auto">
-            <form method="POST" action="{{ route('register.organisateur') }}">
+            <form method="POST" action="{{ route('register.organisateur') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="role" value="organisateur" class="hidden">
+                <div class="flex justify-center items-center mb-4 space-x-6">
+                    <div class="shrink-0">
+                        <img id='preview_img' class="h-16 w-16 object-cover rounded-full"
+                            src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
+                            alt="Current profile photo" />
+                    </div>
+                    <label class="block">
+                        <span class="sr-only">Choose profile photo</span>
+                        <input name="picture" type="file" onchange="loadFile(event)"
+                            class="block w-full text-sm text-slate-500
+                       file:mr-4 file:py-2 file:px-4
+                       file:rounded-full file:border-0
+                       file:text-sm file:font-semibold
+                       file:bg-violet-50 file:text-violet-700
+                       hover:file:bg-violet-100
+                     " />
+                    </label>
+                </div>
                 <div class="mb-4">
                     <label class="block mb-1 text-white font-mono font-bold" for="name">Name</label>
                     <input id="name" type="text" name="name"
@@ -92,7 +110,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="block mb-1 text-white font-mono font-bold" for="password">confirmer le Mot de passe</label>
+                    <label class="block mb-1 text-white font-mono font-bold" for="password">confirmer le Mot de
+                        passe</label>
                     <input id="password_confirmation" type="password" name="password_confirmation"
                         class="py-2 px-3 border border-bg-white focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
                         required autocomplete="password_confirmation" />
@@ -112,4 +131,20 @@
             </form>
         </div>
     </div>
+    <script>
+        var loadFile = function(event) {
+
+            var input = event.target;
+            var file = input.files[0];
+            var type = file.type;
+
+            var output = document.getElementById('preview_img');
+
+
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
 @endsection

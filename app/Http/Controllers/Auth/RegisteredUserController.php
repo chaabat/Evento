@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'role' => ['nullable', 'string', 'max:255'],
@@ -52,11 +52,13 @@ class RegisteredUserController extends Controller
             'picture' => $request->picture,
         ]);
         if ($request->hasFile('picture')) {
-            $data['picture'] =  $request->file('picture')->store('photos', "public"); 
-           
+            $fileName = time() . '.' . $request->picture->extension();
+            $request->picture->move(public_path('images/users'), $fileName);
+            $user->picture = $fileName;
+            $user->save();
         }
-        
-     
+
+
 
         event(new Registered($user));
         Auth::login($user);
@@ -68,7 +70,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'role' => ['nullable', 'string', 'max:255'],
@@ -82,19 +84,21 @@ class RegisteredUserController extends Controller
             'picture' => $request->picture,
         ]);
         if ($request->hasFile('picture')) {
-            $data['picture'] =  $request->file('picture')->store('photos', "public"); 
-           
+            $data['picture'] =  $request->file('picture')->store('photos', "public");
         }
-        
-     
+
+        if ($request->hasFile('picture')) {
+            $fileName = time() . '.' . $request->picture->extension();
+            $request->picture->move(public_path('images/users'), $fileName);
+            $user->picture = $fileName;
+            $user->save();
+        }
+
+
 
         event(new Registered($user));
         Auth::login($user);
 
         return redirect()->route('utilisateur');
     }
-
-
-    
-
 }
