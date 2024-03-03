@@ -16,6 +16,8 @@
 <body >
    
 @yield('login')
+@yield('forgot-password')
+@yield('confirmation')
 
     </body>
 
