@@ -36,20 +36,20 @@ require __DIR__ . '/auth.php';
 
 
 //admin
-// Route::middleware(['can:admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+// Route::middleware(['auth', 'can:admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 // });
 
 
 
 //utilisateur
 // Route::middleware(['can:utilisateur'])->group(function () {
-    Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur.home');
+    Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur');
 // })
 
 
 
 //organisateur
 // Route::middleware(['can:organisateur'])->group(function () {
-    Route::get('/organisateur', [OrganisateurController::class, 'index'])->name('organisateur.home');
-// })
+    Route::get('/organisateur', [OrganisateurController::class, 'index'])->name('organisateur');
+// });
