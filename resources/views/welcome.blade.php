@@ -40,7 +40,7 @@
                         <div>
 
                             <video class="inline-block h-[500px] rounded border-4 border-white mt-22 hidden xl:block"
-                                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+                                src={{asset('photos/evento.mp4')}}
                                 type="video/mp4" autoplay muted loop></video>
                         </div>
 
@@ -71,11 +71,11 @@
                 <div class="flex flex-col items-center justify-center bg-white p-12">
                     <img src="{{ asset('photos/event.jpg') }}" class="h-[100px] " alt="">
 
-                    <div class="mt-3 md:flex md:items-center md:-mx-2">
+                    <div class="mt-3 md:flex md:items-center md:-mx-2 space-x-8">
                         <a href="{{ route('register.organisateur') }}"
                             class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                             <div class="flex items-center">
-                                <img src="{{ asset('photos/voyageur.png') }}" class="h-8 w-8" alt="">
+                                <img src="{{ asset('photos/calendrier.png') }}" class="h-8 w-8" alt="">
 
                                 <span class="mx-2">
                                     Organisateur
@@ -85,7 +85,7 @@
                         <a href="{{ route('register.utilisateur') }}"
                             class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                             <div class="flex items-center">
-                                <img src="{{ asset('photos/taxi.png') }}" class="h-8 w-8" alt="">
+                                <img src="{{ asset('photos/employes.png') }}" class="h-8 w-8" alt="">
                                 <span class="mx-2">
                                     Utilisateur
                                 </span>

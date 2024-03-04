@@ -41,14 +41,12 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'role' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
             'picture' => $request->picture,
         ]);
         if ($request->hasFile('picture')) {
@@ -59,6 +57,7 @@ class RegisteredUserController extends Controller
         }
 
 
+        $user->assignRole('organisateur');
 
         event(new Registered($user));
         Auth::login($user);
@@ -73,19 +72,15 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'role' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
             'picture' => $request->picture,
         ]);
-        if ($request->hasFile('picture')) {
-            $data['picture'] =  $request->file('picture')->store('photos', "public");
-        }
+
 
         if ($request->hasFile('picture')) {
             $fileName = time() . '.' . $request->picture->extension();
@@ -95,6 +90,8 @@ class RegisteredUserController extends Controller
         }
 
 
+
+        $user->assignRole('utilisateur');
 
         event(new Registered($user));
         Auth::login($user);

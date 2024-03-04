@@ -1,56 +1,3 @@
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('register.organisateur') }}">
-        @csrf
-        <input type="text" name="role" value="organisateur" class="hidden">
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
-
 @extends('layouts.master')
 @section('registerOrganisateur')
     <div class="w-full min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
@@ -60,15 +7,15 @@
         <div class="w-full sm:max-w-md p-5 mx-auto">
             <form method="POST" action="{{ route('register.organisateur') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="text" name="role" value="organisateur" class="hidden">
+                {{-- <input type="text" name="role" value="organisateur" class="hidden"> --}}
                 <div class="flex justify-center items-center mb-4 space-x-6">
-                    <div class="shrink-0">
-                        <img id='preview_img' class="h-16 w-16 object-cover rounded-full"
-                            src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
-                            alt="Current profile photo" />
-                    </div>
-                    <label class="block">
-                        <span class="sr-only">Choose profile photo</span>
+
+                    <label class="block ">
+                        <div class="shrink-0">
+                            <img id='preview_img' class="h-20 w-20 object-cover rounded-full"
+                                src="{{ asset('photos/calendrier.png') }}" alt="Current profile photo" />
+                        </div>
+                        <span class="sr-only ">Choose profile photo</span>
                         <input name="picture" type="file" onchange="loadFile(event)"
                             class="block w-full text-sm text-slate-500
                        file:mr-4 file:py-2 file:px-4
@@ -76,6 +23,7 @@
                        file:text-sm file:font-semibold
                        file:bg-violet-50 file:text-violet-700
                        hover:file:bg-violet-100
+                       hidden
                      " />
                     </label>
                 </div>

@@ -20,11 +20,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,20 +36,21 @@ require __DIR__ . '/auth.php';
 
 
 //admin
-// Route::middleware(['auth', 'can:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-// });
+});
 
 
 
 //utilisateur
-// Route::middleware(['can:utilisateur'])->group(function () {
+Route::middleware(['auth', 'role:utilisateur'])->group(function () {
     Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur');
-// })
+});
+
 
 
 
 //organisateur
-// Route::middleware(['can:organisateur'])->group(function () {
+Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', [OrganisateurController::class, 'index'])->name('organisateur');
-// });
+});

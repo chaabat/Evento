@@ -34,17 +34,17 @@ class AuthenticatedSessionController extends Controller
          $user = $request->user();
      
       
-         if ($user->role === 'utilisateur') {
-             return redirect()->route('utilisateur'); 
-         } elseif ($user->role === 'organisateur') {
-             return redirect()->route('organisateur'); 
-         } elseif ($user->role === 'admin') {
-             return redirect()->route('admin'); 
-         }
+         if ( $user->hasRole('utilisateur')) {
+            $redirect = 'utilisateur'; 
+        } elseif ( $user->hasRole('organisateur')) {
+            $redirect = 'organisateur'; 
+        } elseif ( $user->hasRole('admin')) {
+            $redirect = 'admin'; 
+        }
+    
+        return redirect()->route($redirect);
+    }
      
-        
-         return redirect(RouteServiceProvider::HOME);
-     }
     
 
     /**
