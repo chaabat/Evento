@@ -98,7 +98,7 @@
         </div>
 
     </div>
-    @include('incFiles.homeFooter')
+    @include('incFiles.footer')
 
 
 </body>

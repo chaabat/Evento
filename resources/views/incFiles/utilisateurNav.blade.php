@@ -2,18 +2,17 @@
     <div class="flex flex-wrap items-center justify-between w-full p-4 mx-auto">
         <div class="flex items-center space-x-4">
             <a href="#" class="flex items-center">
-                <img src="https://www.svgrepo.com/show/499962/music.svg" class="h-6 mr-3 sm:h-9"
-                    alt="Landwind Logo">
+                <img src="https://www.svgrepo.com/show/499962/music.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo">
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Evento</span>
             </a>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                 <ul
                     class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                        <a href="#" aria-current="page">Templates</a>
+                        <a href="{{ route('utilisateur') }}" aria-current="page">Home</a>
                     </li>
                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                        <a href="#">Marketplace</a>
+                        <a href="#">Réservations</a>
                     </li>
                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                         <a href="{{ route('profile.edit') }}">Profile</a>
@@ -39,15 +38,14 @@
                         aria-label="show notifications">
                         <svg class="w-6 h-6 text-gray-500 hover:text-red-600 " aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2"
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
                         </svg>
                     </button></a>
             </form>
         </div>
         <button data-collapse-toggle="navbar-cta" type="button" id="open-menu-button"
-            class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-white bg-purple-700 rounded-lg md:hidden   focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            class=" inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-white bg-purple-700 rounded-lg md:hidden   focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-cta" aria-expanded="false">
             <span class="sr-only">Open main menu</span>
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -73,11 +71,11 @@
     </div>
     <ul class="flex flex-col p-4 mt-4 text-2xl font-extrabold divide-y divide-black md:p-0">
         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-            <a href="#" class="text-l text-black hover:text-purple-700 font-mono font-bold"
-                aria-current="page">Templates</a>
+            <a href="{{ route('utilisateur') }}" class="text-l text-black hover:text-purple-700 font-mono font-bold"
+                aria-current="page">Home</a>
         </li>
         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-            <a href="#">Marketplace</a>
+            <a href="#">Réservations</a>
         </li>
         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
             <a href="{{ route('profile.edit') }}">Profile</a>

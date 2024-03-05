@@ -12,13 +12,10 @@
 
 
 </head>
-@include('incFiles.utilisateurNav')
-
 <body>
 
     @yield('home')
-
-    @include('incFiles.footer')
+  
 
 </body>
 
