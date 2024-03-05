@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UtilisateurController;
@@ -20,11 +21,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware(['auth', 'verified'])->name('dashboard');
+});
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,6 +39,9 @@ require __DIR__ . '/auth.php';
 //admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('/categories', [CategorieController::class, 'index'])->name('categories');
+    Route::post('/categories', [CategorieController::class, 'store'])->name('addCategorie');
+    Route::delete('/categories/{categorie}', [CategorieController::class, 'delete'])->name('deleteCategorie');
 });
 
 

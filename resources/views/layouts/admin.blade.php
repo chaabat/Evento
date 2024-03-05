@@ -17,6 +17,9 @@
 <body>
 
     @yield('home')
+    @yield('categorie')
+
+
 
 </body>
 
