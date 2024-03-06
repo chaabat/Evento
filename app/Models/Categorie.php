@@ -12,4 +12,8 @@ class Categorie extends Model
         'name',
         'picture'
     ];
+    public function events()
+    {
+        return $this->hasMany(Evenement::class);
+    }
 }

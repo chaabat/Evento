@@ -16,7 +16,8 @@ class Evenement extends Model
         'totalPlaces',
         'mode',
         'statut',
-        'user_id'
+        'user_id',
+        'categorie_id'
 
     ];
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UtilisateurController;
@@ -50,10 +51,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/utilisateurs/{id}/', [AdminController::class, 'deleteUtilisateur'])->name('deleteUtilisateur');
 
     Route::get('/evenments', [AdminController::class, 'evenments'])->name('evenments');
-
-
-    
-
 });
 
 
@@ -68,5 +65,6 @@ Route::middleware(['auth', 'role:utilisateur'])->group(function () {
 
 //organisateur
 Route::middleware(['auth', 'role:organisateur'])->group(function () {
-    Route::get('/organisateur', [OrganisateurController::class, 'index'])->name('organisateur');
+    Route::get('/organisateur', [EvenementController::class, 'index'])->name('organisateur');
+    Route::post('/organisateur', [EvenementController::class, 'create'])->name('addOrganisateur');
 });
