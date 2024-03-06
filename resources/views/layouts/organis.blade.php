@@ -17,7 +17,7 @@
 
     @yield('home')
   
-
+  
+<script src="js/inputPhoto.js"></script>
 </body>
-
 </html>

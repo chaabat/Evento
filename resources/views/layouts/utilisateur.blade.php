@@ -13,13 +13,13 @@
 
 </head>
 @include('incFiles.utilisateurNav')
-
 <body>
 
+    
     @yield('home')
 
-    @include('incFiles.footer')
 
+@include('incFiles.footer')
+<script src="js/inputPhoto.js"></script>
 </body>
-
 </html>

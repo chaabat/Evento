@@ -13,7 +13,7 @@
                         </path>
                     </svg>
                 </button>
-                <a href="#" class="flex items-center">
+                <a href="{{ route('admin') }}" class="flex items-center">
                     <img src="https://www.svgrepo.com/show/499962/music.svg" class="h-6 mr-3 sm:h-9"
                         alt="Landwind Logo">
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Evento</span>
@@ -32,20 +32,20 @@
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                         id="dropdown-user">
-                        <div class="px-4 py-3" role="none">
-                            <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                Neil Sims
+                        <div class="px-4 py-3">
+                            <p class="text-sm text-gray-900 dark:text-white font-bold text-purple-700 font-mono">
+                                {{-- {{$user->name}} --}}
                             </p>
 
                         </div>
-                        <ul class="py-1" role="none">
+                        <ul class="py-1">
                             <li>
                                 <a href="{{ route('admin') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                    class="font-bold text-purple-700 font-mono block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Dashboard</a>
                             </li>
                             <li>
                                 <a href="{{ route('profile.edit') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                                    class=" font-bold text-purple-700 font-mono block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Profile</a>
                             </li>
 
                             <li>
@@ -53,7 +53,7 @@
                                     @csrf
 
                                     <a href="{{ route('logout') }}"><button type="submit"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            class="font-bold text-purple-700 font-mono block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                             aria-label="show notifications">
                                             Logout</button></a>
 
@@ -76,7 +76,7 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
             <li>
-                <a href="{{route('admin')}}"
+                <a href="{{ route('admin') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
@@ -89,7 +89,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('categories')}}"
+                <a href="{{ route('categories') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">

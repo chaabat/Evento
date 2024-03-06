@@ -20,7 +20,7 @@
     @yield('categorie')
 
 
-
+    
+ <script src="js/inputPhoto.js"></script>
 </body>
-
 </html>
