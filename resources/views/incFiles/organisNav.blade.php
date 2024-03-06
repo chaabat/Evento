@@ -10,7 +10,7 @@
                     <ul
                         class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
                         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                            <a href="#" aria-current="page">Templates</a>
+                            <a href="" aria-current="page">Home</a>
                         </li>
                         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                             <a href="#">Marketplace</a>
@@ -74,7 +74,7 @@
         <ul class="flex flex-col p-4 mt-4 text-2xl font-extrabold divide-y divide-black md:p-0">
             <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                 <a href="#" class="text-l text-black hover:text-purple-700 font-mono font-bold"
-                    aria-current="page">Templates</a>
+                    aria-current="page">Home</a>
             </li>
             <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                 <a href="#">Marketplace</a>

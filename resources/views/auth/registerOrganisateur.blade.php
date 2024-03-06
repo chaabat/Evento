@@ -2,12 +2,13 @@
 @section('registerOrganisateur')
     <div class="w-full min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/event.jpg') }}') no-repeat center;background-size:cover">
-        <a href=""><img src="{{ asset('photos/logoo.png') }}" alt="Logo"></a>
-
+        <a href="#" class="flex items-center">
+            <img src="https://www.svgrepo.com/show/499962/music.svg" class=" mr-3 sm:h-9" alt="Landwind Logo">
+            <span class="self-center text-2xl font-bold font-mono  whitespace-nowrap text-white">Evento</span>
+        </a>
         <div class="w-full sm:max-w-md p-5 mx-auto">
             <form method="POST" action="{{ route('register.organisateur') }}" enctype="multipart/form-data">
                 @csrf
-                {{-- <input type="text" name="role" value="organisateur" class="hidden"> --}}
                 <div class="flex justify-center items-center mb-4 space-x-6">
 
                     <label class="block ">
