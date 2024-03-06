@@ -194,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             editCategorieIdInput.value = categoryId;
             editNameInput.value = categoryName;
-            // Fix the typo in the variable assignment
             editPictureInput.value = categoryPicture;
 
             console.log(categoryId, categoryName, categoryPicture);

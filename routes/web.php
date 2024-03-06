@@ -43,6 +43,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/categories', [CategorieController::class, 'store'])->name('addCategorie');
     Route::put('/categories', [CategorieController::class, 'update'])->name('updateCategorie');
     Route::delete('/categories/{categorie}', [CategorieController::class, 'delete'])->name('deleteCategorie');
+
+    Route::get('/utilisateurs', [AdminController::class, 'utilisateurs'])->name('adminUtilisateur');
+    Route::get('/organisateurs', [AdminController::class, 'organisateurs'])->name('adminOrganisateur');
 });
 
 
