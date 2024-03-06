@@ -74,7 +74,7 @@
                         class=" font-mono font-bold w-full inline-flex items-center justify-center px-4 py-2 bg-purple-700 border border-transparent rounded-md font-semibold capitalize text-white  focus:outline-none disabled:opacity-25 transition">Registre</button>
                 </div>
                 <div class="mt-6 text-center">
-                    <a href="/" class="underline text-white font-mono font-bold">Retour a l'accueille </a>
+                    <a href="/" class="underline text-white font-mono font-bold">Retour a l'accueil</a>
                 </div>
             </form>
         </div>

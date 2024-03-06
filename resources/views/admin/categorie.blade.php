@@ -119,86 +119,86 @@
     </div>
     {{-- Pop-up Modifier --}}
     {{-- Updated Pop-up Modifier --}}
-<div id="update-modal" tabindex="-1" aria-hidden="true"
-class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-<div class="relative p-4 w-full max-w-md max-h-full">
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-        <div class="bg-purple-700 flex items-center justify-between p-4 md:p-5 border-b rounded-t  ">
-            <h3 class="text-lg  text-white  font-mono font-bold ">
-                Modifier une Categorie
-            </h3>
-            <button type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                data-modal-toggle="update-modal">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </button>
-        </div>
+    <div id="update-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div class="bg-purple-700 flex items-center justify-between p-4 md:p-5 border-b rounded-t  ">
+                    <h3 class="text-lg  text-white  font-mono font-bold ">
+                        Modifier une Categorie
+                    </h3>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-toggle="update-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
 
-        <form action="{{ route('updateCategorie') }}" method="POST" enctype="multipart/form-data"
-            class="p-4 md:p-5">
-            @csrf
-            @method('PUT')
+                <form action="{{ route('updateCategorie') }}" method="POST" enctype="multipart/form-data"
+                    class="p-4 md:p-5">
+                    @csrf
+                    @method('PUT')
 
-            <div class="grid gap-4 mb-4 grid-cols-2 ">
-                <div class="col-span-2">
-                    <label class="block ">
-                        <input type="hidden" name="id" id="editCategorieId">
-                        <div class="flex flex-auto max-h-48 w-2/5 mx-auto mt-4">
-                            <img id='preview_img' class="has-mask h-36 object-center rounded-full"
-                                src="{{ asset('photos/calendrier.png') }}" alt="Current profile photo">
-                            <input id="editPicture" name="picture" type="file" class="hidden"
-                                onchange="loadFile(event)">
+                    <div class="grid gap-4 mb-4 grid-cols-2 ">
+                        <div class="col-span-2">
+                            <label class="block ">
+                                <input type="hidden" name="id" id="editCategorieId">
+                                <div class="flex flex-auto max-h-48 w-2/5 mx-auto mt-4">
+                                    <img id='preview_img' class="has-mask h-36 object-center rounded-full"
+                                        src="{{ asset('photos/calendrier.png') }}" alt="Current profile photo">
+                                    <input id="editPicture" name="picture" type="file" class="hidden"
+                                        onchange="loadFile(event)">
+                                </div>
+                            </label>
                         </div>
-                    </label>
-                </div>
-                <div class="col-span-2">
-                    <label for="name"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                    <input type="text" name="name" id="editName"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                </div>
+                        <div class="col-span-2">
+                            <label for="name"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                            <input type="text" name="name" id="editName"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
+                    </div>
+                    <input type="submit" value="Modifier"
+                        class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
+
+                    @if ($errors->has('name') || $errors->has('picture'))
+                        <div>{{ $errors->first() }}</div>
+                        <script>
+                            document.getElementById('update-modal').classList.toggle('hidden');
+                        </script>
+                    @endif
+                </form>
             </div>
-            <input type="submit" value="Modifier"
-                class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
-
-            @if ($errors->has('name') || $errors->has('picture'))
-                <div>{{ $errors->first() }}</div>
-                <script>
-                    document.getElementById('update-modal').classList.toggle('hidden');
-                </script>
-            @endif
-        </form>
+        </div>
     </div>
-</div>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const editButtons = document.querySelectorAll('.edit-category');
-    const editCategorieIdInput = document.getElementById('editCategorieId');
-    const editNameInput = document.getElementById('editName');
-    const editPictureInput = document.getElementById('editPicture');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editButtons = document.querySelectorAll('.edit-category');
+            const editCategorieIdInput = document.getElementById('editCategorieId');
+            const editNameInput = document.getElementById('editName');
+            const editPictureInput = document.getElementById('editPicture');
 
-    editButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
 
-            const categoryId = this.getAttribute('data-categorie-id');
-            const categoryName = this.getAttribute('data-categorie-name');
-            const categoryPicture = this.getAttribute('data-categorie-picture');
+                    const categoryId = this.getAttribute('data-categorie-id');
+                    const categoryName = this.getAttribute('data-categorie-name');
+                    const categoryPicture = this.getAttribute('data-categorie-picture');
 
-            editCategorieIdInput.value = categoryId;
-            editNameInput.value = categoryName;
-            editPictureInput.value = categoryPicture;
+                    editCategorieIdInput.value = categoryId;
+                    editNameInput.value = categoryName;
+                    editPictureInput.value = categoryPicture;
 
-            console.log(categoryId, categoryName, categoryPicture);
+                    console.log(categoryId, categoryName, categoryPicture);
+                });
+            });
         });
-    });
-});
-</script>
+    </script>
 @endsection

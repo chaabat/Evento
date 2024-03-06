@@ -46,6 +46,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/utilisateurs', [AdminController::class, 'utilisateurs'])->name('adminUtilisateur');
     Route::get('/organisateurs', [AdminController::class, 'organisateurs'])->name('adminOrganisateur');
+    Route::delete('/organisateurs/{id}/', [AdminController::class, 'deleteOrganisateur'])->name('deleteOrganisateur');
+    Route::delete('/utilisateurs/{id}/', [AdminController::class, 'deleteUtilisateur'])->name('deleteUtilisateur');
+
+    Route::get('/evenments', [AdminController::class, 'evenments'])->name('evenments');
+
+
+    
+
 });
 
 

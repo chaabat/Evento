@@ -6,7 +6,7 @@
 
 
             <div class="mb-16 ">
-                <p class=" text-center  text-2xl font-bold font-mono text-white sm:text-3xl">Voila votre Statestiques !
+                <p class=" text-center  text-2xl font-bold font-mono text-white sm:text-3xl">Voila votre statistiques !
                 </p>
             </div>
 
