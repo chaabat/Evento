@@ -21,21 +21,16 @@ class CategorieController extends Controller
        
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'name.min' => 'The name must have more than 3 characters.',
             'name.unique' => 'This name is already taken.',
 
         ]);
         try {
-        $fileName = time() . '.' . $request->picture->extension();
-        $request->picture->move(public_path('images'), $fileName);
-        $picture = 'images/' . $fileName;
-
+       
         $user = Auth::user();
         Categorie::create([
             'name' => $request->name,
-            'picture' => $picture,
             'user_id' => $user->id,
         ]);
 
@@ -53,39 +48,21 @@ class CategorieController extends Controller
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
 
             ]);
             $updateCategorie = Categorie::findOrFail($request->id);
 
-            if ($request->hasfile('picture')) {
-
-                if ($updateCategorie->picture) {
-                    Storage::delete('public/' . $updateCategorie->picture);
-                }
-                $fileName = time() . '.' . $request->picture->extension();
-                $request->picture->move(public_path('images'), $fileName);
-                $picture = 'images/' . $fileName;
-
-
-                $updateCategorie->update([
-                    'name' => $request->name,
-                    'picture' => $picture,
-                ]);
-            } else {
-
-
+        
                 $updateCategorie->update([
                     'name' => $request->name,
                 ]);
-            }
-
 
             return redirect()->route('categories');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
     }
+  
 
 
 

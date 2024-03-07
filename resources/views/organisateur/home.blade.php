@@ -27,6 +27,18 @@
                     style="background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)), url('{{ asset('photos/event.jpg') }}') no-repeat center;background-size:cover">
                     @foreach ($evenements as $evenement)
                         <div class=" text-white flex items-center justify-between left-4 -top-6">
+                            {{-- DELETE BUTTON START --}}
+                            {{-- @if ($reservation->date > now()->addHour()->timezone('Africa/Casablanca')->toDateTimeString()) --}}
+                            <form action="" method="POST"
+                                class="absolute top-0 right-0 translate-x-[50%] z-50 w-12 h-12">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit"
+                                    class="absolute w-full h-full top-0 left-0 px-4 py-2 bg-red-500 text-white text-2xl font-black rounded-full">X</button>
+                            </form>
+
+                            {{-- DELETE BUTTON END --}}
                             <div class="flex items-center text-sm">
                                 <div class="relative w-16 h-16 mr-3 rounded-full md:block">
                                     <img src="" class="object-cover w-full h-full rounded-full " alt="">
@@ -118,7 +130,8 @@
                     </button>
                 </div>
 
-                <form action="{{route('addOrganisateur')}}" method="POST" enctype="multipart/form-data" class="p-4 md:p-5">
+                <form action="{{ route('addOrganisateur') }}" method="POST" enctype="multipart/form-data"
+                    class="p-4 md:p-5">
                     @csrf
                     @method('post')
 
@@ -150,7 +163,9 @@
                         <div class="col-span-2">
                             <label for="date"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
-                            <input type="date" name="date" id="date"
+                            <input name="date" id="date" type="datetime-local"
+                                min="{{ now()->timezone('Africa/Casablanca')->format('Y-m-d\TH:i') }}"
+                                max="{{ now()->timezone('Africa/Casablanca')->addMonth()->format('Y-m-d\TH:i') }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </div>
                         <div class="col-span-2">
@@ -189,15 +204,15 @@
                         </div>
                     </div>
                     <button type="submit" name="addEvent"
-                    class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
-                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    Add new Event
-                </button>
+                        class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Add new Event
+                    </button>
                     @if ($errors->has('name') || $errors->has('picture'))
                         <div>{{ $errors->first() }}</div>
                         <script>

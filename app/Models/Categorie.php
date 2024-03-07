@@ -9,8 +9,7 @@ class Categorie extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'name',
-        'picture'
+        'name'
     ];
     public function events()
     {

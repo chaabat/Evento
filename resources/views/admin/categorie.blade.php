@@ -22,11 +22,7 @@
                     @foreach ($categories as $categorie)
                         <div
                             class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
-                            <div class="h-auto overflow-hidden">
-                                <div class="h-44 overflow-hidden relative">
-                                    <img src="{{ asset($categorie->picture) }}" class="h-44 w-full" alt="">
-                                </div>
-                            </div>
+
                             <div class="bg-white py-4 px-3">
                                 <h1 class="text-3xl text-black text-center mb-2 font-bold font-mono">{{ $categorie->name }}
                                 </h1>
@@ -37,8 +33,7 @@
                                             data-modal-target="authentication-modal"
                                             data-modal-toggle="authentication-modal"
                                             data-categorie-id="{{ $categorie->id }}"
-                                            data-categorie-name="{{ $categorie->name }}"
-                                            data-categorie-picture="{{ $categorie->picture }}"><img
+                                            data-categorie-name="{{ $categorie->name }}"><img
                                                 src="{{ asset('photos/editer.png') }}" class="h-10 w-10"></a>
                                     </span>
 
@@ -86,17 +81,7 @@
                     @method('post')
 
                     <div class="grid gap-4 mb-4 grid-cols-2 ">
-                        <div class="col-span-2">
-                            <label class="block ">
-                                <div class="flex flex-auto max-h-48 w-2/5 mx-auto mt-4">
-                                    <img id='preview_img' class="has-mask h-36 object-center rounded-full"
-                                        src="{{ asset('photos/calendrier.png') }}" alt="Current profile photo">
-                                    <input id="picture" name="picture" type="file" class="hidden"
-                                        onchange="loadFile(event)">
-                                </div>
-                            </label>
 
-                        </div>
                         <div class="col-span-2">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
@@ -107,7 +92,7 @@
                     <input type="submit" value="Ajouter"
                         class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
 
-                    @if ($errors->has('name') || $errors->has('picture'))
+                    @if ($errors->has('name'))
                         <div>{{ $errors->first() }}</div>
                         <script>
                             document.getElementById('crud-modal').classList.toggle('hidden');
@@ -144,17 +129,7 @@
                     @method('PUT')
 
                     <div class="grid gap-4 mb-4 grid-cols-2 ">
-                        <div class="col-span-2">
-                            <label class="block ">
-                                <input type="hidden" name="id" id="editCategorieId">
-                                <div class="flex flex-auto max-h-48 w-2/5 mx-auto mt-4">
-                                    <img id='preview_img' class="has-mask h-36 object-center rounded-full"
-                                        src="{{ asset('photos/calendrier.png') }}" alt="Current profile photo">
-                                    <input id="editPicture" name="picture" type="file" class="hidden"
-                                        onchange="loadFile(event)">
-                                </div>
-                            </label>
-                        </div>
+
                         <div class="col-span-2">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
@@ -165,7 +140,7 @@
                     <input type="submit" value="Modifier"
                         class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
 
-                    @if ($errors->has('name') || $errors->has('picture'))
+                    @if ($errors->has('name'))
                         <div>{{ $errors->first() }}</div>
                         <script>
                             document.getElementById('update-modal').classList.toggle('hidden');
@@ -181,7 +156,6 @@
             const editButtons = document.querySelectorAll('.edit-category');
             const editCategorieIdInput = document.getElementById('editCategorieId');
             const editNameInput = document.getElementById('editName');
-            const editPictureInput = document.getElementById('editPicture');
 
             editButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {
@@ -189,13 +163,11 @@
 
                     const categoryId = this.getAttribute('data-categorie-id');
                     const categoryName = this.getAttribute('data-categorie-name');
-                    const categoryPicture = this.getAttribute('data-categorie-picture');
 
                     editCategorieIdInput.value = categoryId;
                     editNameInput.value = categoryName;
-                    editPictureInput.value = categoryPicture;
 
-                    console.log(categoryId, categoryName, categoryPicture);
+                    console.log(categoryId, categoryName);
                 });
             });
         });

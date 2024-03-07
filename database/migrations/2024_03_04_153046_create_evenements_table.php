@@ -18,8 +18,9 @@ return new class extends Migration
             $table->date('date');
             $table->string('lieu');
             $table->string('totalPlaces');
-            $table->string('mode');
-            $table->string('statut');
+            $table->enum('mode', ['Automatique', 'Manuelle'])->default('Automatique');
+            $table->enum('statut', ['Accepted', 'Pending'])->default('Pending');
+            $table->float('price');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('categorie_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
