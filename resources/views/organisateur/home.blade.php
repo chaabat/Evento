@@ -79,6 +79,9 @@
                                     @elseif($evenement->statut == 'Accepted')
                                         <span
                                             class="m-1 px-2 py-1 rounded bg-green-500 text-white font-mono">{{ $evenement->statut }}</span>
+                                    @elseif($evenement->statut == 'Rejected')
+                                        <span
+                                            class="m-1 px-2 py-1 rounded bg-red-500 text-white font-mono">{{ $evenement->statut }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -88,22 +91,20 @@
 
 
                             <div class="flex justify-center mt-8 sm:mt-auto">
-                                <div class="flex ">
-                                    <span data-modal-target="update-modal" data-modal-toggle="update-modal">
-                                        <a href="#" class="editEventButton" data-modal-target="authentication-modal"
-                                            data-modal-toggle="authentication-modal" data-event-id="{{ $evenement->id }}"
-                                            data-event-categorie="{{ $evenement->categorie->id }}"
-                                            data-event-titre="{{ $evenement->titre }}"
-                                            data-event-description="{{ $evenement->description }}"
-                                            data-event-lieu="{{ $evenement->lieu }}"
-                                            data-event-places="{{ $evenement->totalPlaces }}"
-                                            data-event-mode="{{ $evenement->mode }}"
-                                            data-event-date="{{ $evenement->date }}"
-                                            data-event-picture="{{ $evenement->picture }}"
-                                            data-event-price="{{ $evenement->price }}">
+                                <div class="flex space-x-4">
+                                    <a href="#" class="editEventButton" data-modal-target="authentication-modal"
+                                        data-modal-toggle="authentication-modal" data-event-id="{{ $evenement->id }}"
+                                        data-event-categorie="{{ $evenement->categorie->id }}"
+                                        data-event-titre="{{ $evenement->titre }}"
+                                        data-event-description="{{ $evenement->description }}"
+                                        data-event-lieu="{{ $evenement->lieu }}"
+                                        data-event-places="{{ $evenement->totalPlaces }}"
+                                        data-event-mode="{{ $evenement->mode }}" data-event-date="{{ $evenement->date }}"
+                                        data-event-picture="{{ $evenement->picture }}"
+                                        data-event-price="{{ $evenement->price }}">
 
-                                            <img src="{{ asset('photos/editer.png') }}" class="h-10 w-10"> </a>
-                                    </span>
+                                        <img src="{{ asset('photos/editer.png') }}" class="h-10 w-10"> </a>
+
                                     <form action="{{ route('deleteEvenement', ['evenement' => $evenement->id]) }}"
                                         method="POST">
                                         @csrf
@@ -245,7 +246,8 @@
         </div>
 
         {{-- Pop-up Modifier --}}
-        <div id="update-modal" tabindex="-1" aria-hidden="true"
+
+        <div id="authentication-modal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-md max-h-full">
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -255,7 +257,7 @@
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-toggle="update-modal">
+                            data-modal-toggle="authentication-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -269,7 +271,7 @@
                         class="p-4 md:p-5">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="id" id="event_id">
+                        <input type="hidden" name="event_id" id="event_id">
 
                         <div class="grid gap-4 mb-4 grid-cols-2 ">
                             <div class="col-span-2">
@@ -329,15 +331,15 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mode</label>
                                 <select id="mode" name="mode"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100 border-gray-500 placeholder-gray-400 text-black focus:ring-primary-500 focus:border-primary-500">
-                                    <option selected disabled="">choose mode of reservation</option>
-                                    <option value="automatique">automatique</option>
-                                    <option value="manuelle">manuelle</option>
+                                    <option selected disabled="">Choose mode of reservation</option>
+                                    <option value="Automatique">Automatique</option>
+                                    <option value="Manuelle">Manuelle</option>
                                 </select>
                             </div>
                             <div class="col-span-2">
                                 <label for="category"
                                     class="block mb-2 text-sm font-medium text-gray-900 text-black">Categorie</label>
-                                <select id="categorie" name="categorie_id"
+                                <select id="categorie" name="categorie"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100 border-gray-500 placeholder-gray-400 text-black focus:ring-primary-500 focus:border-primary-500">
                                     <option selected disabled="">Select categorie</option>
                                     @foreach ($categories as $categorie)
@@ -346,7 +348,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" name="addEvent"
+                        <button type="submit" name="updateEvent"
                             class="bg-purple-700 text-white inline-flex items-center font-bold font-mono rounded-lg text-sm px-5 py-2.5 text-center  ">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -387,10 +389,8 @@
                         const eventPlaces = this.getAttribute('data-event-places');
                         const eventMode = this.getAttribute('data-event-mode');
                         const eventDate = this.getAttribute('data-event-date');
-
                         const eventCategorie = this.getAttribute('data-event-categorie');
                         const eventPrix = this.getAttribute('data-event-price');
-                        const eventPicture = this.getAttribute('data-event-picture');
 
                         eventIdInput.value = eventId;
                         titreInput.value = eventTitre;
@@ -398,18 +398,16 @@
                         lieuInput.value = eventLieu;
                         placesInput.value = eventPlaces;
                         modeInput.value = eventMode;
-                        dateInput.value = eventDate;
 
+                        const formattedDate = new Date(eventDate).toISOString().slice(0, 16);
+                        dateInput.value = formattedDate;
                         categorieInput.value = eventCategorie;
                         prixInput.value = eventPrix;
-                        pictureInput.value = eventPicture;
 
-                        console.log(eventId, eventTitre, eventDescription, eventLieu, eventPlaces,
-                            eventMode, eventCategorie, eventPrix, eventDate);
-                        console.log(eventIdInput.value, titreInput.value, descriptionInput.value,
-                            lieuInput.value, placesInput.value,
-                            modeInput.value, categorieInput.value, prixInput.value, dateInput.value);
-                        console.log(dateInput.value, pictureInput.value);
+                        console.log(
+                            eventMode, eventDate);
+                        console.log(
+                            modeInput.value, dateInput.value);
                     });
                 });
             });

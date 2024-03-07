@@ -5,6 +5,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UtilisateurController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -53,7 +54,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/evenments', [AdminController::class, 'evenments'])->name('evenments');
     Route::patch('/evenments/{event}', [AdminController::class, 'updateStatus'])->name('updateStatus');
     Route::delete('/evenments/{evenement}', [AdminController::class, 'deleteEvent'])->name('deleteEvent');
-
 });
 
 
@@ -71,7 +71,8 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', [EvenementController::class, 'index'])->name('organisateur');
     Route::post('/organisateur', [EvenementController::class, 'create'])->name('addOrganisateur');
     Route::delete('/organisateur/{evenement}', [EvenementController::class, 'delete'])->name('deleteEvenement');
-    Route::put('/organisateur', [EvenementController::class, 'update'])->name('updateEvenement');
+    Route::put('/organisateur-update', [EvenementController::class, 'updateEvent'])->name('updateEvenement');
 
+    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
 
 });

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('picture');
             $table->string('totalPlaces');
             $table->enum('mode', ['Automatique', 'Manuelle'])->default('Automatique');
-            $table->enum('statut', ['Accepted', 'Pending'])->default('Pending');
+            $table->enum('statut', ['Accepted', 'Pending','Rejected'])->default('Pending');
             $table->float('price');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('categorie_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();

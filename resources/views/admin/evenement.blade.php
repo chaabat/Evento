@@ -57,7 +57,7 @@
                             </div>
                             <div class="text-end">
 
-                                @if ($evenement->statut == 'Pending')
+                                {{-- @if ($evenement->statut == 'Pending')
                                     <span
                                         class="m-1 px-2 py-1 rounded bg-orange-500  text-white font-mono">{{ $evenement->statut }}</span>
                                 @elseif($evenement->statut == 'Accepted')
@@ -66,7 +66,14 @@
                                 @elseif($evenement->statut == 'Rejected')
                                     <span
                                         class="m-1 px-2 py-1 rounded bg-Red-500 text-white font-mono">{{ $evenement->statut }}</span>
-                                @endif
+                                @endif --}}
+                                <form action="{{ route('deleteEvent', ['evenement' => $evenement->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">
+                                        <img src="{{ asset('photos/supprimer.png') }}" class="h-10 w-10">
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <h2 class="text-xl font-medium text-black lg:text-xl font-mono ">Description : <br>
@@ -96,17 +103,15 @@
                                             </form>
                                         </div>
                                     @elseif($evenement->statut == 'Accepted')
-
+                                    <span
+                                    class="m-1 px-2 py-1 rounded bg-green-500  text-white font-mono">{{ $evenement->statut }}</span>
+                       
                                     @elseif($evenement->statut == 'Rejected')
+                                        <span
+                                            class="m-1 px-2 py-1 rounded bg-red-500  text-white font-mono">{{ $evenement->statut }}</span>
                                     @endif
                                 </div>
-                                <form action="{{ route('deleteEvent', ['evenement' => $evenement->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="mt-4">
-                                        <img src="{{ asset('photos/supprimer.png') }}" class="h-10 w-10">
-                                    </button>
-                                </form>
+
                             </div>
                         </div>
 

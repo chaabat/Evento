@@ -6,6 +6,8 @@ use App\Models\Categorie;
 use App\Models\Evenement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class EvenementController extends Controller
@@ -18,6 +20,17 @@ class EvenementController extends Controller
             ->orderby('created_at', 'desc')
             ->get();
         return view('organisateur.home', compact('evenements'), compact('categories'));
+    }
+
+    public function eventUp()
+    {
+        $user = Auth::id();
+        $categories = Categorie::all();
+        $evenements = Evenement::where('user_id', $user)
+        ->orderby('created_at', 'desc')
+        ->get();
+            
+        return view('organisateur.updateEvent', compact('evenements'), compact('categories'));
     }
 
     
@@ -64,7 +77,7 @@ class EvenementController extends Controller
   
 
 
-    public function update(Request $request)
+    public function updateEvent(Request $request )
 {
     try {
         $request->validate([
@@ -75,10 +88,12 @@ class EvenementController extends Controller
             'totalPlaces' => ['required', 'integer'],
             'price' => ['required', 'integer'],
             'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'mode' => ['required', 'in:automatique,manuelle'],
+            'mode' => ['required', 'in:Automatique,Manuelle'],
         ]);
 
         $event = Evenement::findOrFail($request->event_id);
+// dd($event);
+
         if ($request->hasFile('picture')) {
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('images'), $fileName);
@@ -86,7 +101,6 @@ class EvenementController extends Controller
 
             $event->update(['picture' => $picture]);
         }
-
         $event->update([
             'titre' => $request->titre,
             'description' => $request->description,
@@ -101,9 +115,10 @@ class EvenementController extends Controller
 
         return redirect()->route('organisateur')->with('success', 'Event updated successfully');
     } catch (\Exception $e) {
-        return redirect()->route('organisateur')->with('error', 'Error updating event');
+        dd($e->getMessage());
     }
 }
+
 
 
 
