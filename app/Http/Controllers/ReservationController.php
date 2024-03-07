@@ -11,14 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    public function reservOrganisateur()
-    {
-        $user = Auth::id();
-        $categories = Categorie::all();
-        $evenements = Evenement::orderby('created_at', 'desc')
-            ->get();
+    // public function reservOrganisateur()
+    // {
 
-        return view('organisateur.reservation', compact('evenements', 'reservation'));
+
+
+    //     return view('organisateur.reservations');
+    // }
+
+    public function viewReservations($id)
+    {
+        $eventReservations = Reservation::where('evenement_id', $id)->get();
+        return view('organisateur.reservations', ['reservations' => $eventReservations]);
     }
 
     public function reservUtilisateur()
@@ -50,7 +54,8 @@ class ReservationController extends Controller
     public function createReservation($eventId)
     {
         $evenement = Evenement::findOrFail($eventId);
-        if ($evenement->mode === 'automatique' && $evenement->nombrePlace > 0) {
+        // dd($eventId);
+        if ($evenement->mode === 'Automatique' && $evenement->totalPlaces > 0) {
             Reservation::create([
                 'titre' => $evenement->titre,
                 'date' => now(),
@@ -59,9 +64,9 @@ class ReservationController extends Controller
                 'evenement_id' => $evenement->id,
                 'user_id' => auth()->id(),
             ]);
-            $evenement->decrement('nombrePlace');
+            $evenement->decrement('totalPlaces');
         } else {
-            if ($evenement->mode === 'manuelle' && $evenement->nombrePlace > 0) {
+            if ($evenement->mode === 'Manuelle' && $evenement->totalPlaces > 0) {
                 Reservation::create([
                     'titre' => $evenement->titre,
                     'date' => now(),
@@ -83,11 +88,7 @@ class ReservationController extends Controller
         return $highestReservedPlace + 1;
     }
 
-    public function viewReservations($eventId)
-    {
-        $eventReservations = Reservation::where('evenement_id', $eventId)->get();
-        return view('organisateur.reservations', ['reservations' => $eventReservations]);
-    }
+
 
     public function updateReservationStatus(Request $request, $reservationId)
     {
@@ -95,10 +96,10 @@ class ReservationController extends Controller
             'statut' => 'required|in:Reserved,Rejected',
         ]);
         $reservation = Reservation::findOrFail($reservationId);
-        // dd($reservation);
+
         $reservation->statut = $request->statut;
         $reservation->nombrePlace = $this->getNextPlaceNumber($reservation->evenement);
-        $reservation->evenement->decrement('nombrePlace');
+        $reservation->evenement->decrement('totalPlaces');
 
         $reservation->save();
         return back();
@@ -107,6 +108,6 @@ class ReservationController extends Controller
 
     public function generateTicket(Reservation $reservation, Evenement $event)
     {
-        return view('client.ticket', compact('reservation', 'event'));
+        return view('utilisateur.ticket', compact('reservation', 'event'));
     }
 }

@@ -66,8 +66,7 @@ Route::middleware(['auth', 'role:utilisateur'])->group(function () {
 
     Route::get('/eventDetails/{id}', [ReservationController::class, 'showDetails'])->name('eventDetails');
     Route::post('/reservations/{eventId}', [ReservationController::class, 'createReservation'])->name('createReservation');
-    Route::get('/reservations/{eventId}', [ReservationController::class, 'viewReservations'])->name('viewReservations');
-    Route::patch('/update-reservation-statut/{reservationId}', [ReservationController::class, 'updateReservationStatus'])->name('updateReservationStatus');
+  
     Route::get('/generate-ticket/{reservation}/{event}', [ReservationController::class, 'generateTicket'])->name('generateTicket');
 });
 
@@ -82,4 +81,11 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::put('/organisateur-update', [EvenementController::class, 'updateEvent'])->name('updateEvenement');
 
     Route::get('/reservation', [ReservationController::class, 'reservOrganisateur'])->name('reservation');
+    Route::get('/view-reservations/{id}', [ReservationController::class, 'viewReservations'])
+    ->name('viewReservations');
+    Route::patch('/update-reservation-statut/{reservationId}', [ReservationController::class, 'updateReservationStatus'])->name('updateReservationStatus');
+
 });
+
+
+// Route::patch('/events/{reservationId}', [ReservationController::class, 'updateReservationStatus'])->name('updateReservationStatus');

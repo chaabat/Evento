@@ -12,7 +12,8 @@
                          <a href="{{ route('organisateur') }}" aria-current="page">Home</a>
                      </li>
                      <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                         <a href="{{ route('reservation') }}">Réservations</a>
+                         {{-- <a href="{{ route('reservation') }}"> --}}
+                            Réservations</a>
                      </li>
                      <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                          <a href="{{ route('profile.edit') }}">Profile</a>
@@ -75,7 +76,8 @@
                  aria-current="page">Home</a>
          </li>
          <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-             <a href="{{ route('reservation') }}">Réservations</a>
+             {{-- <a href="{{ route('reservation') }}"> --}}
+                Réservations</a>
          </li>
          <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
              <a href="{{ route('profile.edit') }}">Profile</a>
