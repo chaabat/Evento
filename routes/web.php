@@ -61,6 +61,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 //utilisateur
 Route::middleware(['auth', 'role:utilisateur'])->group(function () {
     Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur');
+    Route::get('/events', [ReservationController::class, 'utilisateurEvent'])->name('utilisateurEvent');
+    Route::get('/reservations', [ReservationController::class, 'reservUtilisateur'])->name('reservUtilisateur');
+
+    Route::get('/eventDetails/{id}', [ReservationController::class, 'showDetails'])->name('eventDetails');
+    Route::post('/reservations/{eventId}', [ReservationController::class, 'createReservation'])->name('createReservation');
+    Route::get('/reservations/{eventId}', [ReservationController::class, 'viewReservations'])->name('viewReservations');
+    Route::patch('/update-reservation-statut/{reservationId}', [ReservationController::class, 'updateReservationStatus'])->name('updateReservationStatus');
+    Route::get('/generate-ticket/{reservation}/{event}', [ReservationController::class, 'generateTicket'])->name('generateTicket');
 });
 
 
@@ -73,6 +81,5 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::delete('/organisateur/{evenement}', [EvenementController::class, 'delete'])->name('deleteEvenement');
     Route::put('/organisateur-update', [EvenementController::class, 'updateEvent'])->name('updateEvenement');
 
-    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
-
+    Route::get('/reservation', [ReservationController::class, 'reservOrganisateur'])->name('reservation');
 });

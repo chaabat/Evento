@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
     use SoftDeletes;
     /**
      * The attributes that are mass assignable.
@@ -49,6 +49,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    
-  
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

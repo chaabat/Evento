@@ -10,4 +10,5 @@ class OrganisateurController extends Controller
     public function index(){
         return view('organisateur.home');
     }
+     
 }
