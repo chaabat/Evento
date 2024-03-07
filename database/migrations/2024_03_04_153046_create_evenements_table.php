@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->date('date');
             $table->string('lieu');
+            $table->string('picture');
             $table->string('totalPlaces');
             $table->enum('mode', ['Automatique', 'Manuelle'])->default('Automatique');
             $table->enum('statut', ['Accepted', 'Pending'])->default('Pending');

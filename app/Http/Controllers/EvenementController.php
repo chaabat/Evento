@@ -20,14 +20,7 @@ class EvenementController extends Controller
         return view('organisateur.home', compact('evenements'), compact('categories'));
     }
 
-    // public function viewAll()
-    // {
-    //     $user = Auth::id();
-    //     $categories = Categorie::all();
-    //     $evenements = Evenement::all();
-    //     // dd($evenements);
-    //     return view('admin.allEvents', compact('evenements'), compact('categories'));
-    // }
+    
     public function create(Request $request)
     {
         try {
@@ -37,9 +30,14 @@ class EvenementController extends Controller
                 'lieu' => ['required', 'string', 'max:255'],
                 'totalPlaces' => 'required',
                 'price' => 'required',
+                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
                 'mode' => ['required', 'string', 'in:automatique,manuelle'],
                 'categorie_id' => 'required',
             ]);
+
+            $fileName = time() . '.' . $request->picture->extension();
+            $request->picture->move(public_path('images'), $fileName);
+            $picture = 'images/' . $fileName;
 
             $user = auth()->user();
 
@@ -48,11 +46,12 @@ class EvenementController extends Controller
                 'description' => $request->description,
                 'date' => now()->toDateString(),
                 'lieu' => $request->lieu,
+                'picture' => $picture, 
                 'totalPlaces' => $request->totalPlaces,
                 'mode' => $request->mode,
                 'price' => $request->price,
                 'user_id' => $user->id,
-                'categorie_id' =>$request->categorie_id,
+                'categorie_id' => $request->categorie_id,
             ]);
 
             return redirect()->route('addOrganisateur');
@@ -62,14 +61,55 @@ class EvenementController extends Controller
     }
 
 
-    public function updateStatus(Request $request, $eventId)
-    {
+  
+
+
+    public function update(Request $request)
+{
+    try {
         $request->validate([
-            'statut' => 'required|in:Accepted,Rejected',
+            'titre' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'lieu' => ['required', 'string'],
+            'date' => 'required',
+            'totalPlaces' => ['required', 'integer'],
+            'price' => ['required', 'integer'],
+            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'mode' => ['required', 'in:automatique,manuelle'],
         ]);
-        $event = Evenement::findOrFail($eventId);
-        $event->statut = $request->statut;
-        $event->save();
-        return back();
+
+        $event = Evenement::findOrFail($request->event_id);
+        if ($request->hasFile('picture')) {
+            $fileName = time() . '.' . $request->picture->extension();
+            $request->picture->move(public_path('images'), $fileName);
+            $picture = 'images/' . $fileName;
+
+            $event->update(['picture' => $picture]);
+        }
+
+        $event->update([
+            'titre' => $request->titre,
+            'description' => $request->description,
+            'lieu' => $request->lieu,
+            'totalPlaces' => $request->totalPlaces,
+            'mode' => $request->mode,
+            'date' => $request->date,
+            'price' => $request->price,
+            'categorie_id' => $request->categorie,
+            'statut' => "Pending",
+        ]);
+
+        return redirect()->route('organisateur')->with('success', 'Event updated successfully');
+    } catch (\Exception $e) {
+        return redirect()->route('organisateur')->with('error', 'Error updating event');
+    }
+}
+
+
+
+    public function delete(Evenement $evenement)
+    {
+        $evenement->delete();
+        return redirect()->route('organisateur');
     }
 }

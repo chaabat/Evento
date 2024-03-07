@@ -51,6 +51,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/utilisateurs/{id}/', [AdminController::class, 'deleteUtilisateur'])->name('deleteUtilisateur');
 
     Route::get('/evenments', [AdminController::class, 'evenments'])->name('evenments');
+    Route::patch('/evenments/{event}', [AdminController::class, 'updateStatus'])->name('updateStatus');
+    Route::delete('/evenments/{evenement}', [AdminController::class, 'deleteEvent'])->name('deleteEvent');
+
 });
 
 
@@ -67,4 +70,8 @@ Route::middleware(['auth', 'role:utilisateur'])->group(function () {
 Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', [EvenementController::class, 'index'])->name('organisateur');
     Route::post('/organisateur', [EvenementController::class, 'create'])->name('addOrganisateur');
+    Route::delete('/organisateur/{evenement}', [EvenementController::class, 'delete'])->name('deleteEvenement');
+    Route::put('/organisateur', [EvenementController::class, 'update'])->name('updateEvenement');
+
+
 });
