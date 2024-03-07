@@ -21,7 +21,7 @@
                 <div class="grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach ($categories as $categorie)
                         <div
-                            class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                            class=" border border-4 border-purple-700 relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
 
                             <div class="bg-white py-4 px-3">
                                 <h1 class="text-3xl text-black text-center mb-2 font-bold font-mono">{{ $categorie->name }}
@@ -131,6 +131,8 @@
                     <div class="grid gap-4 mb-4 grid-cols-2 ">
 
                         <div class="col-span-2">
+                            <input type="hidden" name="id" id="editCategorieId">
+
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
                             <input type="text" name="name" id="editName"

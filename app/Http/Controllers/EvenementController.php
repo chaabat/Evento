@@ -36,6 +36,7 @@ class EvenementController extends Controller
                 'description' => ['required', 'string'],
                 'lieu' => ['required', 'string', 'max:255'],
                 'totalPlaces' => 'required',
+                'price' => 'required',
                 'mode' => ['required', 'string', 'in:automatique,manuelle'],
                 'categorie_id' => 'required',
             ]);
@@ -49,6 +50,7 @@ class EvenementController extends Controller
                 'lieu' => $request->lieu,
                 'totalPlaces' => $request->totalPlaces,
                 'mode' => $request->mode,
+                'price' => $request->price,
                 'user_id' => $user->id,
                 'categorie_id' =>$request->categorie_id,
             ]);

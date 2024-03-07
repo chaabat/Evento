@@ -52,7 +52,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <a href="{{ route('logout') }}"
+                                    <a
                                         class="font-bold text-purple-700 font-mono block px-4 py-2 text-sm text-gray-700 hover:bg-red-700 hover:text-white ">
                                         <button type="submit">Logout</button></a>
 

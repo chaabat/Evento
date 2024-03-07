@@ -13,6 +13,7 @@ class Evenement extends Model
         'description',
         'date',
         'lieu',
+        'price',
         'totalPlaces',
         'mode',
         'statut',
