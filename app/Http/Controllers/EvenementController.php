@@ -122,6 +122,8 @@ class EvenementController extends Controller
 
 
 
+
+
     public function delete(Evenement $evenement)
     {
         $evenement->delete();
