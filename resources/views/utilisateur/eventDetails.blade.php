@@ -1,14 +1,12 @@
 @extends('layouts.utilisateur')
 @section('home')
 
-    {{-- my section --}}
     <div class=" py-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row -mx-4">
                 <div class="md:flex-1 px-4">
                     <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-                        <img class="w-full h-full object-cover" src="{{ asset('images/users/' . $event->picture) }}"
-                            alt="">
+                        <img class="w-full h-full object-cover" src="{{ asset($event->picture) }}" alt="">
                     </div>
 
                     <div class="flex -mx-2 mb-4">
@@ -43,13 +41,13 @@
                                             @if ($userReservation)
                                                 @if ($userReservation->statut == 'Reserved')
                                                     <span
-                                                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ $userReservation->statut }}</span>
+                                                        class="w-full bg-green-200 dark:bg-green-700 text-green-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-green-300 dark:hover:bg-green-600">{{ $userReservation->statut }}</span>
                                                 @elseif($userReservation->statut == 'Pending')
                                                     <span
-                                                        class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-400">{{ $userReservation->statut }}</span>
+                                                        class="w-full bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-yellow-300 dark:hover:bg-yellow-600">{{ $userReservation->statut }}</span>
                                                 @elseif($userReservation->statut == 'Rejected')
                                                     <span
-                                                        class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ $userReservation->statut }}</span>
+                                                        class="w-full bg-red-200 dark:bg-red-700 text-red-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-red-300 dark:hover:bg-red-600">{{ $userReservation->statut }}</span>
                                                 @endif
                                             @else
                                                 <div class="flex gap-2">

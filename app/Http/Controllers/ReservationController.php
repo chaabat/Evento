@@ -14,14 +14,21 @@ class ReservationController extends Controller
     // public function reservOrganisateur()
     // {
 
+    //     $user = Auth::id();
+    //     $categories = Categorie::all();
+    //     $evenements = Evenement::where('user_id', $user);
+    //     $eventReservations = Reservation::where('evenement_id', $user)->get();
+
+           
 
 
-    //     return view('organisateur.reservations');
+    //     return view('organisateur.reservations', compact('evenements'), compact('categories'),['reservations' => $eventReservations]);
     // }
 
-    public function viewReservations($id)
+    public function viewReservations()
     {
-        $eventReservations = Reservation::where('evenement_id', $id)->get();
+        $user = Auth::id();
+        $eventReservations = Reservation::where('evenement_id', $user)->get();
         return view('organisateur.reservations', ['reservations' => $eventReservations]);
     }
 
