@@ -14,9 +14,7 @@
                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                         <a href="{{ route('utilisateurEvent') }}">Evenements</a>
                     </li>
-                    <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                        <a href="{{ route('reservUtilisateur') }}">Réservations</a>
-                    </li>
+                
                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                         <a href="{{ route('profile.edit') }}">Profile</a>
                     </li>
@@ -80,9 +78,7 @@
         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
             <a href="{{ route('utilisateurEvent') }}">Evenements</a>
         </li>
-        <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-            <a href="{{ route('reservUtilisateur') }}">Réservations</a>
-        </li>
+      
         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
             <a href="{{ route('profile.edit') }}">Profile</a>
         </li>

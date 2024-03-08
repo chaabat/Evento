@@ -31,7 +31,7 @@ class AdminController extends Controller
         $user = Auth::id();
         $categories = Categorie::all();
         $evenements = Evenement::all();
-            
+
 
         return view('admin.evenement', compact('evenements'), compact('categories'));
     }
@@ -51,7 +51,7 @@ class AdminController extends Controller
     {
         $utilisateurRole = Role::where('name', 'utilisateur')->firstOrFail();
 
-        $utilisateurs = $utilisateurRole->users()->paginate(5);
+        $utilisateurs = $utilisateurRole->users()->withTrashed()->paginate(5);
 
         return view('admin.utilisateur', compact('utilisateurs'));
     }
@@ -60,10 +60,11 @@ class AdminController extends Controller
     {
         $organisateurRole = Role::where('name', 'organisateur')->firstOrFail();
 
-        $organisateurs = $organisateurRole->users()->paginate(5);
+        $organisateurs = $organisateurRole->users()->withTrashed()->paginate(5);
 
         return view('admin.organisateur', compact('organisateurs'));
     }
+
 
     public function deleteOrganisateur(Request $request)
     {
@@ -74,10 +75,35 @@ class AdminController extends Controller
         return redirect()->route('adminOrganisateur');
     }
 
-    public function deleteEvent(Evenement $evenement){
-      
-            $evenement->delete();
-            return redirect()->route('evenments');
-        
+
+
+    public function activeOrganisateur(string $id)
+    {
+        $organisateur = User::withTrashed()->findOrFail($id);
+        $organisateur->restore();
+        return redirect()->route('adminOrganisateur');
+    }
+
+    public function deleteUtilisateur(Request $request)
+    {
+        $id = $request->id;
+        $utilisateur = User::findOrFail($id);
+
+        $utilisateur->delete();
+        return redirect()->route('adminUtilisateur');
+    }
+
+    public function activeUtilisateur(string $id)
+    {
+        $utilisateur = User::withTrashed()->findOrFail($id);
+        $utilisateur->restore();
+        return redirect()->route('adminUtilisateur');
+    }
+
+    public function deleteEvent(Evenement $evenement)
+    {
+
+        $evenement->delete();
+        return redirect()->route('evenments');
     }
 }

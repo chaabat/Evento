@@ -31,8 +31,7 @@
                                             <div class="flex items-center text-sm">
                                                 <div class="relative w-8 h-8 mr-3 rounded-full md:block">
                                                     <img class="object-cover w-full h-full rounded-full"
-                                                    {{-- src="{{ asset('images/users/' . $organisateur->picture) }}" alt=""  --}}
-                                                    />
+                                                        {{-- src="{{ asset($organisateur->user->picture) }}"  --}} />
 
                                                 </div>
                                                 <div>
@@ -45,13 +44,19 @@
                                         <td class="px-4 py-3 text-ms font-bold border">{{ $organisateur->created_at }}</td>
 
                                         <td class="px-4 py-3 text-xs border">
-                                            <form action="{{ route('deleteOrganisateur', ['id' => $organisateur->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="bg-red-600 text-white p-2 rounded-md mt-4 hover:bg-red-800 w-full">Delete</button>
-                                            </form>
+
+                                            @if ($organisateur->trashed())
+                                                <button
+                                                    class="bg-green-600 text-white p-2 rounded-md mt-4 hover:bg-green-800 w-full"><a
+                                                        href="{{ route('activateOrganisateur', ['id' => $organisateur->id]) }}">Debloquer
+                                                    </a></button>
+                                            @else
+                                                <button
+                                                    class="bg-red-600 text-white p-2 rounded-md mt-4 hover:bg-red-800 w-full"><a
+                                                        href="{{ route('deleteOrganisateur', ['id' => $organisateur->id]) }}">Bloquer
+                                                    </a></button>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @empty
@@ -62,9 +67,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="mt-8 flex justify-center">
-                    {{ $organisateurs->links('pagination::tailwind') }}
+                    <div class="mt-8 flex justify-center bg-white font-mono">
+                        {{ $organisateurs->links('pagination::tailwind') }}
+                    </div>
                 </div>
             </section>
         </div>

@@ -19,6 +19,7 @@ class UtilisateurController extends Controller
     
         if ($request->filled('filterCategorie')) {
             $query->where('categorie_id', $request->input('filterCategorie'));
+            
         }
     
         if ($request->filled('filterDate')) {

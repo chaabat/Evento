@@ -16,6 +16,10 @@
                             Réservations</a>
                      </li>
                      <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
+                        <a href="{{ route('statistiques') }}">
+                            Statistiques</a>
+                    </li>
+                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                          <a href="{{ route('profile.edit') }}">Profile</a>
                      </li>
 
@@ -79,6 +83,10 @@
              <a href="{{ route('reservation') }}">
                 Réservations</a>
          </li>
+         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
+            <a href="{{ route('statistiques') }}">
+                Statistiques</a>
+        </li>
          <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
              <a href="{{ route('profile.edit') }}">Profile</a>
          </li>

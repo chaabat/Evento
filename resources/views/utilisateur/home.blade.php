@@ -23,8 +23,14 @@
                         <img src="{{ asset('photos/categorie.png') }}" class="h-6" alt="">
 
                     </span>
-                    <input name="filterCategorie" class="block p-2.5 w-full  text-sm text-gray-900 bg-gray-50 outline-none"
-                        placeholder="Categorie">
+                    <select name="filterCategorie" class="block p-2.5 w-full  text-sm text-gray-900 bg-gray-50 outline-none"
+                        placeholder="Categorie"> 
+                        <option selected disabled="">Select categorie</option>
+                                    @foreach ($categories as $categorie)
+                                        <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                                    @endforeach
+                    
+                    </select>
                 </div>
                 <div class=" w-full flex items-center">
                     <span class="p-2 bg-gray-50">

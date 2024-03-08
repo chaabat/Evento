@@ -11,35 +11,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    // public function reservOrganisateur()
-    // {
 
-    //     $user = Auth::id();
-    //     $categories = Categorie::all();
-    //     $evenements = Evenement::where('user_id', $user);
-    //     $eventReservations = Reservation::where('evenement_id', $user)->get();
-
-           
-
-
-    //     return view('organisateur.reservations', compact('evenements'), compact('categories'),['reservations' => $eventReservations]);
-    // }
 
     public function viewReservations()
     {
         $user = Auth::id();
-        $eventReservations = Reservation::where('evenement_id', $user)->get();
+        $eventReservations = Reservation::where('evenement_id', $user)
+            ->orderby('created_at', 'desc')
+            ->paginate(2);
         return view('organisateur.reservations', ['reservations' => $eventReservations]);
     }
 
-    public function reservUtilisateur()
-    {
-        $reservation = Reservation::all();
-        $evenements = Evenement::where('statut', "Accepted")
-            ->orderby('created_at', 'desc')
-            ->get();
-        return view('utilisateur.reservation', compact('evenements', 'reservation'));
-    }
+
+
+
 
     public function utilisateurEvent()
     {
