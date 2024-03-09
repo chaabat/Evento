@@ -5,6 +5,53 @@
 
 
         <div class="w-full  px-4 mx-auto mb-[600px] ">
+            <div class="flex items-center justify-center space-x-4 mt-4 mb-4 ">
+                <div class="bg-purple-700 p-6 rounded-lg">
+                    <div class="flex flex-row space-x-4 items-center">
+                        <div id="stats-1">
+                            <img src="{{ asset('photos/calendrier.png') }}" class="h-12" alt="">
+
+                        </div>
+                        <div>
+                            <p class="text-white text-l font-medium uppercase font-mono text-bold">Total des ÉVÉNEMENTs
+                            </p>
+                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                <span>+28</span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                                    </svg>
+
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-purple-700 p-6 rounded-lg">
+                    <div class="flex flex-row space-x-4 items-center">
+                        <div id="stats-1">
+                            <img src="{{ asset('photos/evenment.png') }}" class="h-12" alt="">
+                        </div>
+                        <div>
+                            <p class="text-white text-l font-medium uppercase font-mono text-bold ">les événements réservés
+                            </p>
+                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                <span>+28</span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                                    </svg>
+
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="rounded-full mb-0 px-4 py-3 border-4 border-purple-700 bg-white ">
                 <div class="flex flex-wrap items-center text-white ">
                     <div class="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -20,8 +67,6 @@
                 </div>
             </div>
 
-
-
             {{-- ticket --}}
 
             @foreach ($evenements as $evenement)
@@ -31,7 +76,7 @@
 
 
                         <div class="text-white p-8 sm:p-8 bg-[#2C2760] order-first ml-auto h-48 w-full sm:order-none sm:h-auto sm:w-1/2 lg:w-2/5 flex flex-col justify-between"
-                            style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/back.jpg') }}') no-repeat center;background-size:cover">
+                            style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset($evenement->picture) }}') no-repeat center;background-size:cover">
                             <div class="flex items-center mt-2">
                                 <img class="w-10 h-10 object-cover rounded-full" alt="User avatar"
                                     src="{{ asset('images/users/' . $evenement->user->picture) }}" />
@@ -120,7 +165,9 @@
 
                     </div>
             @endforeach
-
+            <div class="mt-8 flex justify-center bg-white font-mono">
+                {{ $evenements->links('pagination::tailwind') }}
+            </div>
         </div>
         {{-- Ajouter Pop-up --}}
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -137,8 +184,8 @@
                             data-modal-toggle="crud-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                             <span class="sr-only">Close modal</span>
                         </button>
@@ -363,53 +410,57 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const editEventButtons = document.querySelectorAll('.editEventButton');
-                const eventIdInput = document.getElementById('event_id');
-                const titreInput = document.getElementById('titre');
-                const descriptionInput = document.getElementById('description');
-                const lieuInput = document.getElementById('lieu');
-                const placesInput = document.getElementById('totalPlaces');
-                const modeInput = document.getElementById('mode');
-                const dateInput = document.getElementById('date');
-                const categorieInput = document.getElementById('categorie');
-                const prixInput = document.getElementById('price');
-                const pictureInput = document.getElementById('picture');
 
-                editEventButtons.forEach(function(button) {
-                    button.addEventListener('click', function(event) {
-                        event.preventDefault();
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editEventButtons = document.querySelectorAll('.editEventButton');
+            const eventIdInput = document.getElementById('event_id');
+            const titreInput = document.getElementById('titre');
+            const descriptionInput = document.getElementById('description');
+            const lieuInput = document.getElementById('lieu');
+            const placesInput = document.getElementById('totalPlaces');
+            const modeInput = document.getElementById('mode');
+            const dateInput = document.getElementById('date');
+            const categorieInput = document.getElementById('categorie');
+            const prixInput = document.getElementById('price');
+            const pictureInput = document.getElementById('picture');
 
-                        const eventId = this.getAttribute('data-event-id');
-                        const eventTitre = this.getAttribute('data-event-titre');
-                        const eventDescription = this.getAttribute('data-event-description');
-                        const eventLieu = this.getAttribute('data-event-lieu');
-                        const eventPlaces = this.getAttribute('data-event-places');
-                        const eventMode = this.getAttribute('data-event-mode');
-                        const eventDate = this.getAttribute('data-event-date');
-                        const eventCategorie = this.getAttribute('data-event-categorie');
-                        const eventPrix = this.getAttribute('data-event-price');
+            editEventButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
 
-                        eventIdInput.value = eventId;
-                        titreInput.value = eventTitre;
-                        descriptionInput.value = eventDescription;
-                        lieuInput.value = eventLieu;
-                        placesInput.value = eventPlaces;
-                        modeInput.value = eventMode;
+                    const eventId = this.getAttribute('data-event-id');
+                    const eventTitre = this.getAttribute('data-event-titre');
+                    const eventDescription = this.getAttribute('data-event-description');
+                    const eventLieu = this.getAttribute('data-event-lieu');
+                    const eventPlaces = this.getAttribute('data-event-places');
+                    const eventMode = this.getAttribute('data-event-mode');
+                    const eventDate = this.getAttribute('data-event-date');
+                    const eventCategorie = this.getAttribute('data-event-categorie');
+                    const eventPrix = this.getAttribute('data-event-price');
 
-                        const formattedDate = new Date(eventDate).toISOString().slice(0, 16);
-                        dateInput.value = formattedDate;
-                        categorieInput.value = eventCategorie;
-                        prixInput.value = eventPrix;
+                    eventIdInput.value = eventId;
+                    titreInput.value = eventTitre;
+                    descriptionInput.value = eventDescription;
+                    lieuInput.value = eventLieu;
+                    placesInput.value = eventPlaces;
+                    modeInput.value = eventMode;
 
-                        console.log(
-                            eventMode, eventDate);
-                        console.log(
-                            modeInput.value, dateInput.value);
-                    });
+                    const formattedDate = new Date(eventDate).toISOString().slice(0, 16);
+                    dateInput.value = formattedDate;
+                    categorieInput.value = eventCategorie;
+                    prixInput.value = eventPrix;
+
+                    console.log(
+                        eventMode, eventDate);
+                    console.log(
+                        modeInput.value, dateInput.value);
                 });
             });
-        </script>
-    @endsection
+        });
+    </script>
+@endsection

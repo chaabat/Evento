@@ -23,6 +23,7 @@
 
     @yield('home')
 
+    @include('incFiles.footer')
 
     <script src="js/inputPhoto.js"></script>
 </body>

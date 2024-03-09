@@ -30,9 +30,9 @@
                     <div class="flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-3/5 text-[#2C2760] bg-white">
 
                         <div class="flex items-start justify-between mb-4">
-                            <div class="text-sm font-medium uppercase sm:text-base"><a href="#"
+                            {{-- <div class="text-sm font-medium uppercase sm:text-base"><a href="#"
                                     class="m-1 px-2 py-1 rounded bg-green-500">
-                                    @if ($reservation->numplace)
+                                    @if ($reservation->totalPlaces)
                                         <div class="flex items-center">
                                             N° de place :
                                             <p class="ml-2"> {{ $reservation->evenement->nombrePlace }}</p>
@@ -40,7 +40,7 @@
                                     @endif
                                     places
                                 </a>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="pl-2">
@@ -95,6 +95,7 @@
         <div class="mt-8 flex justify-center bg-white font-mono">
             {{ $reservations->links('pagination::tailwind') }}
         </div>
+    </div>
     </div>
     </div>
 @endsection

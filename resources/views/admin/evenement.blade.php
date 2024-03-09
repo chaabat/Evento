@@ -15,7 +15,7 @@
 
 
                     <div class="text-white p-8 sm:p-8 bg-[#2C2760] order-first ml-auto h-48 w-full sm:order-none sm:h-auto sm:w-1/2 lg:w-2/5 flex flex-col justify-between"
-                        style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/back.jpg') }}') no-repeat center;background-size:cover">
+                        style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset($evenement->picture) }}') no-repeat center;background-size:cover">
                         <div class="flex items-center mt-2">
                             <img class="w-10 h-10 object-cover rounded-full" alt="User avatar"
                                 src="{{ asset('images/users/' . $evenement->user->picture) }}" />
@@ -57,16 +57,7 @@
                             </div>
                             <div class="text-end">
 
-                                {{-- @if ($evenement->statut == 'Pending')
-                                    <span
-                                        class="m-1 px-2 py-1 rounded bg-orange-500  text-white font-mono">{{ $evenement->statut }}</span>
-                                @elseif($evenement->statut == 'Accepted')
-                                    <span
-                                        class="m-1 px-2 py-1 rounded bg-green-500 text-white font-mono">{{ $evenement->statut }}</span>
-                                @elseif($evenement->statut == 'Rejected')
-                                    <span
-                                        class="m-1 px-2 py-1 rounded bg-Red-500 text-white font-mono">{{ $evenement->statut }}</span>
-                                @endif --}}
+                            
                                 <form action="{{ route('deleteEvent', ['evenement' => $evenement->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

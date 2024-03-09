@@ -11,8 +11,9 @@ class OrganisateurController extends Controller
         return view('organisateur.home');
     }
 
-    public function statistiques(){
-        return view('organisateur.statistiques');
+    public function orgaStats(){
+        
+    
     }
      
 }

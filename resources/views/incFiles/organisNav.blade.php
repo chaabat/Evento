@@ -2,7 +2,7 @@
      <div class="flex flex-wrap items-center justify-between w-full p-4 mx-auto">
          <div class="flex items-center space-x-4">
              <a href="#" class="flex items-center">
-                 <img src="images/users/{{Auth::user()->picture}}" class="h-6 mr-3 sm:h-9" alt="Landwind Logo">
+                 <img src="images/users/{{ Auth::user()->picture }}" class="h-6 mr-3 sm:h-9" alt="Landwind Logo">
                  <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Evento</span>
              </a>
              <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
@@ -13,15 +13,10 @@
                      </li>
                      <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                          <a href="{{ route('reservation') }}">
-                            Réservations</a>
+                             Réservations</a>
                      </li>
-                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                        <a href="{{ route('statistiques') }}">
-                            Statistiques</a>
-                    </li>
-                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                         <a href="{{ route('profile.edit') }}">Profile</a>
-                     </li>
+
+
 
                  </ul>
              </div>
@@ -30,9 +25,9 @@
          <div class="flex items-center">
 
              <div class="w-8 h-8 flex  overflow-hidden border-2 border-gray-400 rounded-full">
-                 <img src="{{ asset('photos/calendrier.png') }}" class="object-cover w-full h-full" alt="avatar">
+                 <img src="images/users/{{ Auth::user()->picture }}" class="object-cover w-full h-full" alt="avatar">
              </div>
-             {{-- <h3>{{ Auth::user()->name }}</h3> --}}
+             <h3 class="font-mono  text-purple-700">{{ Auth::user()->name }}</h3>
 
 
              </button>
@@ -81,15 +76,10 @@
          </li>
          <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
              <a href="{{ route('reservation') }}">
-                Réservations</a>
+                 Réservations</a>
          </li>
-         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-            <a href="{{ route('statistiques') }}">
-                Statistiques</a>
-        </li>
-         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-             <a href="{{ route('profile.edit') }}">Profile</a>
-         </li>
+
+
          <li class="text-2xl mt-12 text-black hover:text-red-700 font-mono font-bold">
              <form method="POST" action="{{ route('logout') }}">
                  @csrf

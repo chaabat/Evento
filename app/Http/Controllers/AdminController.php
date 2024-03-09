@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\admin;
 use App\Models\user;
 use App\Models\Categorie;
+use App\Models\Reservation;
 use App\Models\Evenement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,16 +16,41 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $organisateurRole = Role::where('name', 'organisateur')->first();
-        $organisateurCount = $organisateurRole->users()->count();
+        $organisateurCount = User::role('organisateur')->count();
 
-        $utilisateurRole = Role::where('name', 'utilisateur')->first();
-        $utilisateurCount = $utilisateurRole->users()->count();
+        $utilisateurCount = User::role('utilisateur')->count();
 
+        $mostReservedEvent = Evenement::withCount('reservations')
+            ->orderBy('reservations_count', 'desc')
+            ->value('titre');
+
+        $mostActiveOrganisateur = User::role('organisateur')
+            ->withCount('evenements')
+            ->orderBy('evenements_count', 'desc')
+            ->value('name');
+
+        // The name of the most active client (user with the most reservations)
+        $mostActiveClient = User::role('utilisateur')
+            ->withCount('reservations')
+            ->orderBy('reservations_count', 'desc')
+            ->value('name');
+
+        // The title of the event with the most reservations
+        $eventWithMostReservations = Evenement::withCount('reservations')
+            ->orderBy('reservations_count', 'desc')
+            ->value('titre');
+
+        // The name of the category with the most events
+        $mostUsedCategory = Categorie::withCount('events')
+            ->orderBy('events_count', 'desc')
+            ->value('name');
+
+        // Total count of events
         $eventCount = Evenement::count();
 
-        return view('admin.dashboard', compact(['organisateurCount', 'utilisateurCount', 'eventCount']));
+        return view('admin.dashboard', compact('organisateurCount', 'utilisateurCount', 'mostReservedEvent', 'eventCount', 'mostActiveOrganisateur', 'mostActiveClient', 'eventWithMostReservations', 'mostUsedCategory'));
     }
+
 
     public function evenments()
     {
@@ -72,7 +98,12 @@ class AdminController extends Controller
         $organisateur = User::findOrFail($id);
 
         $organisateur->delete();
-        return redirect()->route('adminOrganisateur');
+
+        Evenement::where('user_id', $organisateur->id)->delete();
+        Reservation::whereIn('evenement_id', function ($query) use ($organisateur) {
+            $query->select('id')->from('evenements')->where('user_id', $organisateur->id);
+        })->delete();
+        return redirect()->back();
     }
 
 
@@ -80,25 +111,25 @@ class AdminController extends Controller
     public function activeOrganisateur(string $id)
     {
         $organisateur = User::withTrashed()->findOrFail($id);
+
+        // Restore the user
         $organisateur->restore();
-        return redirect()->route('adminOrganisateur');
+
+        // Restore related events
+        Evenement::withTrashed()
+            ->where('user_id', $organisateur->id)
+            ->restore();
+
+        // Restore related reservations
+        Reservation::withTrashed()
+            ->whereIn('evenement_id', function ($query) use ($organisateur) {
+                $query->select('id')->from('evenements')->where('user_id', $organisateur->id);
+            })
+            ->restore();
+
+        return redirect()->back()->with('success', 'Organisateur and associated events/restaurants restored successfully');
     }
 
-    public function deleteUtilisateur(Request $request)
-    {
-        $id = $request->id;
-        $utilisateur = User::findOrFail($id);
-
-        $utilisateur->delete();
-        return redirect()->route('adminUtilisateur');
-    }
-
-    public function activeUtilisateur(string $id)
-    {
-        $utilisateur = User::withTrashed()->findOrFail($id);
-        $utilisateur->restore();
-        return redirect()->route('adminUtilisateur');
-    }
 
     public function deleteEvent(Evenement $evenement)
     {
@@ -106,35 +137,4 @@ class AdminController extends Controller
         $evenement->delete();
         return redirect()->route('evenments');
     }
-
-
-    public function stats()
-{
-    $mostReservedEvent = Evenement::select('titre')
-    ->withCount('reservations')
-    ->orderBy('reservations_count', 'desc')
-    ->value('titre');
-    $mostActiveOrganisateur = User::select('name')->
-    Role::where('name', 'utilisateur')->first()
-    ->withCount('evenements')
-    ->orderBy('evenements_count', 'desc')
-    ->value('name');
-
-    $mostActiveClient = User::select('name')->
-    Role::where('name', 'utilisateur')->first()
-    ->withCount('reservations')
-    ->orderBy('reservations_count', 'desc')
-    ->value('name');
-    $eventWithMostReservations = Evenement::select('titre')
-    ->withCount('reservations')
-    ->orderBy('reservations_count', 'desc')
-    ->value('titre');
-    $mostUsedCategory = Categorie::select('name')
-    ->withCount('events')
-    ->orderBy('events_count', 'desc')
-    ->value('name');
-
-
-    return view('admin.dashboard', compact('clientCount','organisateurCount','totalEvents','mostReservedEvent','mostActiveOrganisateur','mostActiveClient'));
-}
 }

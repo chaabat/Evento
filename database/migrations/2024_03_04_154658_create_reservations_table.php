@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->date('date');
-            $table->string('nombrePlace');
-            $table->string('statut');
+            $table->integer('nombrePlace');
+            $table->enum('statut', ['Reserved', 'Pending', 'Accepted', 'Rejected']);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('evenement_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

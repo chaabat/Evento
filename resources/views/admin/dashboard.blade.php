@@ -2,13 +2,46 @@
 @section('home')
     <div class="p-4 sm:ml-64  h-screen overflow-y-scroll"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/event.jpg') }}') no-repeat center;background-size:cover">
-        <div class="  rounded-lg mt-14">
-
-
-            <div class="mb-16 ">
+        <div class="  rounded-lg mt-20">
+            <div class="mb-12 ">
                 <p class=" text-center  text-2xl font-bold font-mono text-white sm:text-3xl">Voila votre statistiques !
                 </p>
             </div>
+
+            <div class="flex items-center justify-center space-x-4 mt-4 mb-4 ">
+                <div class="bg-purple-700 p-6 rounded-lg">
+                    <div class="flex flex-row space-x-4 items-center">
+                        <div id="stats-1">
+                            <img src="{{ asset('photos/calendrier.png') }}" class="h-12" alt="">
+
+                        </div>
+                        <div>
+                            <p class="text-white text-l font-medium uppercase font-mono text-bold">Catégorie Populaire
+                            </p>
+                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                {{ $mostUsedCategory }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-purple-700 p-6 rounded-lg">
+                    <div class="flex flex-row space-x-4 items-center">
+                        <div id="stats-1">
+                            <img src="{{ asset('photos/evenment.png') }}" class="h-12" alt="">
+                        </div>
+                        <div>
+                            <p class="text-white text-l font-medium uppercase font-mono text-bold ">l'evénement le plus
+                                réservés
+                            </p>
+                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                {{ $eventWithMostReservations }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="flex flex-col items-center justify-between lg:flex-row lg:items-start">
 
@@ -23,7 +56,11 @@
 
                     <div
                         class="flex items-center justify-center px-4 py-3 text-xl text-center text-white bg-purple-700 font-mono rounded-xl">
-                        {{ $organisateurCount }}
+                        Totale : {{ $organisateurCount }}
+                    </div>
+                    <div
+                        class="mt-2 flex items-center justify-center px-4 py-3 text-xl text-center text-white bg-purple-700 font-mono rounded-xl">
+                        Le plus active :{{ $mostActiveOrganisateur }}
                     </div>
                 </div>
 
@@ -39,7 +76,11 @@
 
                     <div
                         class="flex items-center justify-center px-4 py-4 text-2xl text-center text-white bg-purple-700 font-mono rounded-xl">
-                        {{ $eventCount }}
+                        Totale : {{ $eventCount }}
+                    </div>
+                    <div
+                        class="mt-2 flex items-center justify-center px-4 py-4 text-2xl text-center text-white bg-purple-700 font-mono rounded-xl">
+                        Populaire : {{ $mostReservedEvent }}
                     </div>
                 </div>
 
@@ -54,7 +95,11 @@
 
                     <div
                         class="flex items-center justify-center px-4 py-3 text-xl text-center text-white bg-purple-700 font-mono rounded-xl">
-                        {{ $utilisateurCount }}
+                        Totale : {{ $utilisateurCount }}
+                    </div>
+                    <div
+                        class="mt-2 flex items-center justify-center px-4 py-3 text-xl text-center text-white bg-purple-700 font-mono rounded-xl">
+                        Le plus active :{{ $mostActiveClient }}
                     </div>
                 </div>
             </div>

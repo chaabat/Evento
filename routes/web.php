@@ -52,9 +52,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/organisateurs/{id}/activate', [AdminController::class, 'activeOrganisateur'])->name('activateOrganisateur');
 
 
-    Route::delete('/utilisateurs/{id}/', [AdminController::class, 'deleteUtilisateur'])->name('deleteUtilisateur');
-    Route::delete('/utilisateurs/{id}/', [AdminController::class, 'activeUtilisateur'])->name('activeUtilisateur');
-
     Route::get('/evenments', [AdminController::class, 'evenments'])->name('evenments');
     Route::patch('/evenments/{event}', [AdminController::class, 'updateStatus'])->name('updateStatus');
     Route::delete('/evenments/{evenement}', [AdminController::class, 'deleteEvent'])->name('deleteEvent');
@@ -66,7 +63,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:utilisateur'])->group(function () {
     Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur');
     Route::get('/events', [ReservationController::class, 'utilisateurEvent'])->name('utilisateurEvent');
-    // Route::get('/reservations', [ReservationController::class, 'reservUtilisateur'])->name('reservUtilisateur');
 
     Route::get('/eventDetails/{id}', [ReservationController::class, 'showDetails'])->name('eventDetails');
     Route::post('/reservations/{eventId}', [ReservationController::class, 'createReservation'])->name('createReservation');
@@ -80,7 +76,6 @@ Route::middleware(['auth', 'role:utilisateur'])->group(function () {
 //organisateur
 Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', [EvenementController::class, 'index'])->name('organisateur');
-    Route::get('/statistiques', [OrganisateurController::class, 'statistiques'])->name('statistiques');
     Route::post('/organisateur', [EvenementController::class, 'create'])->name('addOrganisateur');
     Route::delete('/organisateur/{evenement}', [EvenementController::class, 'delete'])->name('deleteEvenement');
     Route::put('/organisateur-update', [EvenementController::class, 'updateEvent'])->name('updateEvenement');

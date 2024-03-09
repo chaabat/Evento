@@ -18,7 +18,7 @@ class EvenementController extends Controller
         $categories = Categorie::all();
         $evenements = Evenement::where('user_id', $user)
             ->orderby('created_at', 'desc')
-            ->get();
+            ->paginate(2);
         return view('organisateur.home', compact('evenements'), compact('categories'));
     }
 
@@ -27,13 +27,13 @@ class EvenementController extends Controller
         $user = Auth::id();
         $categories = Categorie::all();
         $evenements = Evenement::where('user_id', $user)
-        ->orderby('created_at', 'desc')
-        ->get();
-            
+            ->orderby('created_at', 'desc')
+            ->get();
+
         return view('organisateur.updateEvent', compact('evenements'), compact('categories'));
     }
 
-    
+
     public function create(Request $request)
     {
         try {
@@ -59,7 +59,7 @@ class EvenementController extends Controller
                 'description' => $request->description,
                 'date' => now()->toDateString(),
                 'lieu' => $request->lieu,
-                'picture' => $picture, 
+                'picture' => $picture,
                 'totalPlaces' => $request->totalPlaces,
                 'mode' => $request->mode,
                 'price' => $request->price,
@@ -74,50 +74,50 @@ class EvenementController extends Controller
     }
 
 
-  
 
 
-    public function updateEvent(Request $request )
-{
-    try {
-        $request->validate([
-            'titre' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'lieu' => ['required', 'string'],
-            'date' => 'required',
-            'totalPlaces' => ['required', 'integer'],
-            'price' => ['required', 'integer'],
-            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'mode' => ['required', 'in:Automatique,Manuelle'],
-        ]);
 
-        $event = Evenement::findOrFail($request->event_id);
-// dd($event);
+    public function updateEvent(Request $request)
+    {
+        try {
+            $request->validate([
+                'titre' => ['required', 'string', 'max:255'],
+                'description' => ['required', 'string'],
+                'lieu' => ['required', 'string'],
+                'date' => 'required',
+                'totalPlaces' => ['required', 'integer'],
+                'price' => ['required', 'integer'],
+                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'mode' => ['required', 'in:Automatique,Manuelle'],
+            ]);
 
-        if ($request->hasFile('picture')) {
-            $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->move(public_path('images'), $fileName);
-            $picture = 'images/' . $fileName;
+            $event = Evenement::findOrFail($request->event_id);
+            // dd($event);
 
-            $event->update(['picture' => $picture]);
+            if ($request->hasFile('picture')) {
+                $fileName = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('images'), $fileName);
+                $picture = 'images/' . $fileName;
+
+                $event->update(['picture' => $picture]);
+            }
+            $event->update([
+                'titre' => $request->titre,
+                'description' => $request->description,
+                'lieu' => $request->lieu,
+                'totalPlaces' => $request->totalPlaces,
+                'mode' => $request->mode,
+                'date' => $request->date,
+                'price' => $request->price,
+                'categorie_id' => $request->categorie,
+                'statut' => "Pending",
+            ]);
+
+            return redirect()->route('organisateur')->with('success', 'Event updated successfully');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
         }
-        $event->update([
-            'titre' => $request->titre,
-            'description' => $request->description,
-            'lieu' => $request->lieu,
-            'totalPlaces' => $request->totalPlaces,
-            'mode' => $request->mode,
-            'date' => $request->date,
-            'price' => $request->price,
-            'categorie_id' => $request->categorie,
-            'statut' => "Pending",
-        ]);
-
-        return redirect()->route('organisateur')->with('success', 'Event updated successfully');
-    } catch (\Exception $e) {
-        dd($e->getMessage());
     }
-}
 
 
 

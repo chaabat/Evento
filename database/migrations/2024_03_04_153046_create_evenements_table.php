@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('evenements', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->string('description');
+            $table->text('description');
             $table->date('date');
             $table->string('lieu');
-            $table->string('picture');
-            $table->string('totalPlaces');
+            $table->string('picture')->nullable();
+            $table->integer('totalPlaces');
             $table->enum('mode', ['Automatique', 'Manuelle'])->default('Automatique');
             $table->enum('statut', ['Accepted', 'Pending','Rejected'])->default('Pending');
             $table->float('price');
