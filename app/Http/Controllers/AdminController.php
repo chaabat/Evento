@@ -106,4 +106,35 @@ class AdminController extends Controller
         $evenement->delete();
         return redirect()->route('evenments');
     }
+
+
+    public function stats()
+{
+    $mostReservedEvent = Evenement::select('titre')
+    ->withCount('reservations')
+    ->orderBy('reservations_count', 'desc')
+    ->value('titre');
+    $mostActiveOrganisateur = User::select('name')->
+    Role::where('name', 'utilisateur')->first()
+    ->withCount('evenements')
+    ->orderBy('evenements_count', 'desc')
+    ->value('name');
+
+    $mostActiveClient = User::select('name')->
+    Role::where('name', 'utilisateur')->first()
+    ->withCount('reservations')
+    ->orderBy('reservations_count', 'desc')
+    ->value('name');
+    $eventWithMostReservations = Evenement::select('titre')
+    ->withCount('reservations')
+    ->orderBy('reservations_count', 'desc')
+    ->value('titre');
+    $mostUsedCategory = Categorie::select('name')
+    ->withCount('events')
+    ->orderBy('events_count', 'desc')
+    ->value('name');
+
+
+    return view('admin.dashboard', compact('clientCount','organisateurCount','totalEvents','mostReservedEvent','mostActiveOrganisateur','mostActiveClient'));
+}
 }

@@ -1,6 +1,5 @@
 @extends('layouts.utilisateur')
 @section('home')
-
     <div class=" py-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row -mx-4">
@@ -9,65 +8,12 @@
                         <img class="w-full h-full object-cover" src="{{ asset($event->picture) }}" alt="">
                     </div>
 
-                    <div class="flex -mx-2 mb-4">
-                        <div class="w-1/2 px-2">
-                            <button
-                                class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">
-                                <a href="{{ route('utilisateurEvent') }}">
-                                    Retour </a> </button>
-
-
-                        </div>
-                        <div class="w-1/2 px-2">
-                            <div class="flex items-center text-green-500 gap-2 mt-3">
-                                <span class="ml- leading-none text-green-600">
-                                    <div>
-                                        @if ($event->reservations->isEmpty())
-                                            <div class="flex gap-2">
-                                                <form action="{{ route('createReservation', ['eventId' => $event->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="w-full py-2 px-4 rounded-full font-bold   bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300">Reserve</button>
-                                                </form>
-                                            </div>
-                                        @else
-                                            @php
-                                                $userReservation = $event->reservations
-                                                    ->where('user_id', Auth::id())
-                                                    ->first();
-                                            @endphp
-
-                                            @if ($userReservation)
-                                                @if ($userReservation->statut == 'Reserved')
-                                                    <span
-                                                        class="w-full bg-green-200 dark:bg-green-700 text-green-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-green-300 dark:hover:bg-green-600">{{ $userReservation->statut }}</span>
-                                                @elseif($userReservation->statut == 'Pending')
-                                                    <span
-                                                        class="w-full bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-yellow-300 dark:hover:bg-yellow-600">{{ $userReservation->statut }}</span>
-                                                @elseif($userReservation->statut == 'Rejected')
-                                                    <span
-                                                        class="w-full bg-red-200 dark:bg-red-700 text-red-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-red-300 dark:hover:bg-red-600">{{ $userReservation->statut }}</span>
-                                                @endif
-                                            @else
-                                                <div class="flex gap-2">
-                                                    <form
-                                                        action="{{ route('createReservation', ['eventId' => $event->id]) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="w-full py-2 px-4 rounded-full font-bold   bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300">Reserve</button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        @endif
-                                    </div>
-                                </span>
-                                </span>
-                            </div>
-                        </div>
+                    <div class="w-1/2 px-2">
+                        <button
+                            class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">
+                            <a href="{{ route('utilisateurEvent') }}">
+                                Retour </a> </button>
                     </div>
-
                 </div>
                 <div class="md:flex-1 px-4">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Titre : {{ $event->titre }}</h2>
@@ -97,7 +43,7 @@
                                 </svg>
                                 <span class="sr-only">Info</span>
                                 <div>
-                                    <span class="font-medium">Only</span> {{ $event->totalPlaces }}
+                                    {{ $event->totalPlaces }}
                                     <span class="font-medium">Places left !</span>
                                 </div>
                             </div>
@@ -122,9 +68,56 @@
                             {{ $event->description }}
                         </p>
                     </div>
+                    <div class="w-1/2 px-2">
+                        <div class="flex items-center text-green-500 gap-2 mt-3">
+                            <span class="ml- leading-none text-green-600">
+                                <div>
+                                    @if ($event->reservations->isEmpty())
+                                        <div class="flex gap-2">
+                                            <form action="{{ route('createReservation', ['eventId' => $event->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="w-full bg-purple-200 dark:bg-purple-700 text-purple-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-purple-300 dark:hover:bg-purple-600">Reserve</button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        @php
+                                            $userReservation = $event->reservations
+                                                ->where('user_id', Auth::id())
+                                                ->first();
+                                        @endphp
+
+                                        @if ($userReservation)
+                                            @if ($userReservation->statut == 'Reserved')
+                                                <span
+                                                    class="w-full bg-green-200 dark:bg-green-700 text-green-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-green-300 dark:hover:bg-green-600">{{ $userReservation->statut }}</span>
+                                            @elseif($userReservation->statut == 'Pending')
+                                                <span
+                                                    class="w-full bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-yellow-300 dark:hover:bg-yellow-600">{{ $userReservation->statut }}</span>
+                                            @elseif($userReservation->statut == 'Rejected')
+                                                <span
+                                                    class="w-full bg-red-200 dark:bg-red-700 text-red-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-red-300 dark:hover:bg-red-600">{{ $userReservation->statut }}</span>
+                                            @endif
+                                        @else
+                                            <div class="flex gap-2">
+                                                <form action="{{ route('createReservation', ['eventId' => $event->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="w-full bg-purple-200 dark:bg-purple-700 text-purple-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-purple-300 dark:hover:bg-purple-600">Reserve</button>
+                                                </form>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                            </span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    </div>
 @endsection

@@ -2,7 +2,7 @@
      <div class="flex flex-wrap items-center justify-between w-full p-4 mx-auto">
          <div class="flex items-center space-x-4">
              <a href="#" class="flex items-center">
-                 <img src="https://www.svgrepo.com/show/499962/music.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo">
+                 <img src="images/users/{{Auth::user()->picture}}" class="h-6 mr-3 sm:h-9" alt="Landwind Logo">
                  <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Evento</span>
              </a>
              <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">

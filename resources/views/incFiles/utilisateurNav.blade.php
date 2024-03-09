@@ -14,10 +14,8 @@
                     <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
                         <a href="{{ route('utilisateurEvent') }}">Evenements</a>
                     </li>
-                
-                    <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-                        <a href="{{ route('profile.edit') }}">Profile</a>
-                    </li>
+
+
 
                 </ul>
             </div>
@@ -26,9 +24,9 @@
         <div class="flex items-center">
 
             <div class="w-8 h-8 flex  overflow-hidden border-2 border-gray-400 rounded-full">
-                <img src="{{ asset('photos/calendrier.png') }}" class="object-cover w-full h-full" alt="avatar">
+                <img src="images/users/{{ Auth::user()->picture }}" class="object-cover w-full h-full" alt="avatar">
             </div>
-            {{-- <h3>{{ Auth::user()->name }}</h3> --}}
+            <h3 class="font-mono  text-purple-700">{{ Auth::user()->name }}</h3>
 
 
             </button>
@@ -78,10 +76,8 @@
         <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
             <a href="{{ route('utilisateurEvent') }}">Evenements</a>
         </li>
-      
-        <li class="text-l text-black hover:text-purple-700 font-mono font-bold">
-            <a href="{{ route('profile.edit') }}">Profile</a>
-        </li>
+
+
         <li class="text-2xl mt-12 text-black hover:text-red-700 font-mono font-bold">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -95,7 +91,6 @@
 <hr class=" border-2 border-purple-700 ">
 
 <script>
-    // JavaScript to toggle the menu on button click
     const openMenuButton = document.getElementById('open-menu-button');
     const closeMenuButton = document.getElementById('close-menu-button');
     const menuContainer = document.getElementById('menu-container');

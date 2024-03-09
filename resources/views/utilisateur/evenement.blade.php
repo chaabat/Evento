@@ -49,9 +49,9 @@
                                 @endif
                             @endif
                         </div>
-                        <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">Categorie : </h3>
+                        <h3 class="tracking-widest font-mono text-xl font-bold  text-black">Evenement : </h3>
                         {{ $evenement->categorie->name }}
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Evenement : {{ $evenement->titre }}
+                        <h2 class="text-2xl text-purple-700 font-mono   mb-4"> {{ $evenement->titre }}
                         </h2>
                         <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat.
                             Distillery hexagon disrupt edison bulbche.</p>
