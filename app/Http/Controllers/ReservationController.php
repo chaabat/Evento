@@ -16,7 +16,7 @@ class ReservationController extends Controller
     {
         $userId = Auth::id();
         $organisateur = Evenement::where('user_id', $userId)->pluck('id');
-        
+
         $eventReservations = Reservation::whereIn('evenement_id', $organisateur)
             ->whereNotIn('user_id', function ($query) {
                 $query->select('id')->from('users')->whereNotNull('deleted_at');
@@ -26,10 +26,6 @@ class ReservationController extends Controller
 
         return view('organisateur.reservations', ['reservations' => $eventReservations]);
     }
-
-
-
-
 
 
 
@@ -44,6 +40,7 @@ class ReservationController extends Controller
 
     public function showDetails($id)
     {
+        $userId = Auth::id();
         $event = Evenement::findOrFail($id);
 
         return view('utilisateur.eventDetails', compact('event'));

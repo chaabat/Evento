@@ -12,41 +12,60 @@
                         <img class="lg:h-60 xl:h-56 md:h-64 sm:h-72 xs:h-72 h-72 rounded w-full object-cover object-center mb-6"
                             src="{{ asset($evenement->picture) }}" alt="">
                         <div class="flex flex-end">
-                            @if ($evenement->reservations->isEmpty())
-                                <div class="flex gap-2">
-                                    <form action="{{ route('createReservation', ['eventId' => $evenement->id]) }}"
-                                        method="post">
-                                        @csrf
-                                        <button type="submit"
-                                            class="rounded px-4 py-1 text-xs bg-purple-500 text-purple-100 hover:bg-purple-600 duration-300">Reserve</button>
-                                    </form>
-                                </div>
-                            @else
-                                @php
-                                    $userReservation = $evenement->reservations->where('user_id', Auth::id())->first();
-                                @endphp
-
-                                @if ($userReservation)
-                                    @if ($userReservation->statut == 'Reserved')
-                                        <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ $userReservation->statut }}</span>
-                                    @elseif($userReservation->statut == 'Pending')
-                                        <span
-                                            class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-400">{{ $userReservation->statut }}</span>
-                                    @elseif($userReservation->statut == 'Rejected')
-                                        <span
-                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ $userReservation->statut }}</span>
-                                    @endif
-                                @else
+                            @if ($evenement->totalPlaces > 0)
+                                @if ($evenement->reservations->isEmpty())
                                     <div class="flex gap-2">
                                         <form action="{{ route('createReservation', ['eventId' => $evenement->id]) }}"
                                             method="post">
                                             @csrf
                                             <button type="submit"
-                                                class="rounded px-4 py-1 text-xs bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300">Reserve</button>
+                                                class="rounded px-4 py-1 text-xs bg-purple-500 text-purple-100 hover:bg-purple-600 duration-300">Reserve</button>
                                         </form>
                                     </div>
+                                @else
+                                    @php
+                                        $userReservation = $evenement->reservations
+                                            ->where('user_id', Auth::id())
+                                            ->first();
+                                    @endphp
+
+                                    @if ($userReservation)
+                                        @if ($userReservation->statut == 'Reserved')
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ $userReservation->statut }}</span>
+                                        @elseif($userReservation->statut == 'Pending')
+                                            <span
+                                                class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-400">{{ $userReservation->statut }}</span>
+                                        @elseif($userReservation->statut == 'Rejected')
+                                            <span
+                                                class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ $userReservation->statut }}</span>
+                                        @endif
+                                    @else
+                                        <div class="flex gap-2">
+                                            <form action="{{ route('createReservation', ['eventId' => $evenement->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="rounded px-4 py-1 text-xs bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300">Reserve</button>
+                                            </form>
+                                        </div>
+                                    @endif
                                 @endif
+                            @else
+                                <div class="flex items-center mt-2">
+                                    <div class="flex items-center p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                        role="alert">
+                                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                        </svg>
+
+                                        <div>
+                                            <span class="font-bold font-mono ">No Places left !</span>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                         <h3 class="tracking-widest font-mono text-xl font-bold  text-black">Evenement : </h3>
@@ -127,14 +146,14 @@
                                         <p class="ml-2"> {{ $evenement->user->name }}</p>
                                     </div>
 
-                                    <div class="flex items-center">
+                                    <div class="flex items-center ">
                                         <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
                                                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        <span class="ml-1 leading-none"> {{ $evenement->date }}
+                                        <span class="ml-1 font-mono text-purple-700"> {{ $evenement->date }}
                                         </span>
                                     </div>
                                 </div>

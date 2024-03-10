@@ -5,59 +5,13 @@
 
 
         <div class="w-full  px-4 mx-auto mb-[600px] ">
-            <div class="flex items-center justify-center space-x-4 mt-4 mb-4 ">
-                <div class="bg-purple-700 p-6 rounded-lg">
-                    <div class="flex flex-row space-x-4 items-center">
-                        <div id="stats-1">
-                            <img src="{{ asset('photos/calendrier.png') }}" class="h-12" alt="">
 
-                        </div>
-                        <div>
-                            <p class="text-white text-l font-medium uppercase font-mono text-bold">Total des ÉVÉNEMENTs
-                            </p>
-                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                <span>+28</span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                                    </svg>
-
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-purple-700 p-6 rounded-lg">
-                    <div class="flex flex-row space-x-4 items-center">
-                        <div id="stats-1">
-                            <img src="{{ asset('photos/evenment.png') }}" class="h-12" alt="">
-                        </div>
-                        <div>
-                            <p class="text-white text-l font-medium uppercase font-mono text-bold ">les événements réservés
-                            </p>
-                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                <span>+28</span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                                    </svg>
-
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="rounded-full mb-0 px-4 py-3 border-4 border-purple-700 bg-white ">
                 <div class="flex flex-wrap items-center text-white ">
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                    <div class=" w-full px-4 max-w-full flex-grow flex-1">
                         <h3 class="font-bold text-base text-purple-700">Evenements</h3>
                     </div>
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                    <div class=" w-full px-4 max-w-full flex-grow flex-1 text-right">
                         <span data-modal-target="crud-modal" data-modal-toggle="crud-modal">
                             <button id="add-button"
                                 class="bg-purple-700 text-white text-sm font-mono font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1  "
@@ -67,7 +21,6 @@
                 </div>
             </div>
 
-            {{-- ticket --}}
 
             @foreach ($evenements as $evenement)
                 <div class="max-w-screen-lg mx-4 mt-24 overflow-hidden  shadow-lg rounded-xl sm:mx-auto">
@@ -184,8 +137,8 @@
                             data-modal-toggle="crud-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                             <span class="sr-only">Close modal</span>
                         </button>

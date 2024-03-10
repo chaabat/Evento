@@ -72,34 +72,8 @@
                         <div class="flex items-center text-green-500 gap-2 mt-3">
                             <span class="ml- leading-none text-green-600">
                                 <div>
-                                    @if ($event->reservations->isEmpty())
-                                        <div class="flex gap-2">
-                                            <form action="{{ route('createReservation', ['eventId' => $event->id]) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="w-full bg-purple-200 dark:bg-purple-700 text-purple-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-purple-300 dark:hover:bg-purple-600">Reserve</button>
-                                            </form>
-                                        </div>
-                                    @else
-                                        @php
-                                            $userReservation = $event->reservations
-                                                ->where('user_id', Auth::id())
-                                                ->first();
-                                        @endphp
-
-                                        @if ($userReservation)
-                                            @if ($userReservation->statut == 'Reserved')
-                                                <span
-                                                    class="w-full bg-green-200 dark:bg-green-700 text-green-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-green-300 dark:hover:bg-green-600">{{ $userReservation->statut }}</span>
-                                            @elseif($userReservation->statut == 'Pending')
-                                                <span
-                                                    class="w-full bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-yellow-300 dark:hover:bg-yellow-600">{{ $userReservation->statut }}</span>
-                                            @elseif($userReservation->statut == 'Rejected')
-                                                <span
-                                                    class="w-full bg-red-200 dark:bg-red-700 text-red-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-red-300 dark:hover:bg-red-600">{{ $userReservation->statut }}</span>
-                                            @endif
-                                        @else
+                                    @if ($event->totalPlaces > 0)
+                                        @if ($event->reservations->isEmpty())
                                             <div class="flex gap-2">
                                                 <form action="{{ route('createReservation', ['eventId' => $event->id]) }}"
                                                     method="post">
@@ -108,7 +82,37 @@
                                                         class="w-full bg-purple-200 dark:bg-purple-700 text-purple-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-purple-300 dark:hover:bg-purple-600">Reserve</button>
                                                 </form>
                                             </div>
+                                        @else
+                                            @php
+                                                $userReservation = $event->reservations
+                                                    ->where('user_id', Auth::id())
+                                                    ->first();
+                                            @endphp
+
+                                            @if ($userReservation)
+                                                @if ($userReservation->statut == 'Reserved')
+                                                    <span
+                                                        class="w-full bg-green-200 dark:bg-green-700 text-green-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-green-300 dark:hover:bg-green-600">{{ $userReservation->statut }}</span>
+                                                @elseif($userReservation->statut == 'Pending')
+                                                    <span
+                                                        class="w-full bg-yellow-200 dark:bg-yellow-700 text-yellow-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-yellow-300 dark:hover:bg-yellow-600">{{ $userReservation->statut }}</span>
+                                                @elseif($userReservation->statut == 'Rejected')
+                                                    <span
+                                                        class="w-full bg-red-200 dark:bg-red-700 text-red-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-red-300 dark:hover:bg-red-600">{{ $userReservation->statut }}</span>
+                                                @endif
+                                            @else
+                                                <div class="flex gap-2">
+                                                    <form
+                                                        action="{{ route('createReservation', ['eventId' => $event->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="w-full bg-purple-200 dark:bg-purple-700 text-purple-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-purple-300 dark:hover:bg-purple-600">Reserve</button>
+                                                    </form>
+                                                </div>
+                                            @endif
                                         @endif
+                                    @else
                                     @endif
                                 </div>
                             </span>

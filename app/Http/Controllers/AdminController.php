@@ -52,11 +52,12 @@ class AdminController extends Controller
     {
         $user = Auth::id();
         $categories = Categorie::all();
-        $evenements = Evenement::all();
+        $evenements = Evenement::orderBy('created_at', 'desc')
+            ->paginate(2);
 
-
-        return view('admin.evenement', compact('evenements'), compact('categories'));
+        return view('admin.evenement', compact('evenements', 'categories'));
     }
+
 
     public function updateStatus(Request $request, $eventId)
     {

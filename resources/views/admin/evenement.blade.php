@@ -57,7 +57,7 @@
                             </div>
                             <div class="text-end">
 
-                            
+
                                 <form action="{{ route('deleteEvent', ['evenement' => $evenement->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -94,9 +94,8 @@
                                             </form>
                                         </div>
                                     @elseif($evenement->statut == 'Accepted')
-                                    <span
-                                    class="m-1 px-2 py-1 rounded bg-green-500  text-white font-mono">{{ $evenement->statut }}</span>
-                       
+                                        <span
+                                            class="m-1 px-2 py-1 rounded bg-green-500  text-white font-mono">{{ $evenement->statut }}</span>
                                     @elseif($evenement->statut == 'Rejected')
                                         <span
                                             class="m-1 px-2 py-1 rounded bg-red-500  text-white font-mono">{{ $evenement->statut }}</span>
@@ -111,6 +110,9 @@
                 </div>
         @endforeach
 
+    </div>
+    <div class="mt-8 flex justify-center bg-white font-mono">
+        {{ $evenements->links('pagination::tailwind') }}
     </div>
     </div>
 @endsection

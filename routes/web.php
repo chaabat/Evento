@@ -22,7 +22,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/dashboard', function () {
@@ -79,6 +79,7 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::post('/organisateur', [EvenementController::class, 'create'])->name('addOrganisateur');
     Route::delete('/organisateur/{evenement}', [EvenementController::class, 'delete'])->name('deleteEvenement');
     Route::put('/organisateur-update', [EvenementController::class, 'updateEvent'])->name('updateEvenement');
+    Route::get('/statistique', [OrganisateurController::class, 'statistique'])->name('statistique');
 
     Route::get('/reservation', [ReservationController::class, 'viewReservations'])->name('reservation');
 
