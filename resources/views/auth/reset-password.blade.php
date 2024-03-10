@@ -43,8 +43,10 @@
 @section('confirmation')
     <div class="w-full min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/event.jpg') }}') no-repeat center;background-size:cover">
-        <a href=""><img src="{{ asset('photos/logoo.png') }}" alt="Logo"></a>
-
+        <a href="#" class="flex items-center">
+            <img src="https://www.svgrepo.com/show/499962/music.svg" class=" mr-3 sm:h-9" alt="Landwind Logo">
+            <span class="self-center text-2xl font-bold font-mono  whitespace-nowrap text-white">Evento</span>
+        </a>
         <div class="w-full sm:max-w-md p-5 mx-auto">
             <form method="POST" action="{{ route('password.store') }}">
                 @csrf
@@ -73,7 +75,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="block mb-1 text-white font-mono font-bold" for="password">Confirmer le Mot de passe</label>
+                    <label class="block mb-1 text-white font-mono font-bold" for="password">Confirmer le Mot de
+                        passe</label>
                     <input id="password_confirmation" type="password" name="password_confirmation"
                         class="py-2 px-3 border border-bg-white focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
                         required autocomplete="new-password" />

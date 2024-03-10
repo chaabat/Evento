@@ -1,36 +1,12 @@
-{{-- <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
-
 
 @extends('layouts.master')
 @section('forgot-password')
     <div class="w-full min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/event.jpg') }}') no-repeat center;background-size:cover">
-        <a href=""><img src="{{ asset('photos/logoo.png') }}" alt="Logo"></a>
-
+        <a href="#" class="flex items-center">
+            <img src="https://www.svgrepo.com/show/499962/music.svg" class=" mr-3 sm:h-9" alt="Landwind Logo">
+            <span class="self-center text-2xl font-bold font-mono  whitespace-nowrap text-white">Evento</span>
+        </a>
         <div class="w-full sm:max-w-md p-5 mx-auto">
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf

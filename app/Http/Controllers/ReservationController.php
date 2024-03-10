@@ -12,15 +12,22 @@ use Illuminate\Support\Facades\Auth;
 class ReservationController extends Controller
 {
 
-
     public function viewReservations()
     {
-        $user = Auth::id();
-        $eventReservations = Reservation::where('evenement_id', $user)
-            ->orderby('created_at', 'desc')
+        $userId = Auth::id();
+        $organisateur = Evenement::where('user_id', $userId)->pluck('id');
+        
+        $eventReservations = Reservation::whereIn('evenement_id', $organisateur)
+            ->whereNotIn('user_id', function ($query) {
+                $query->select('id')->from('users')->whereNotNull('deleted_at');
+            })
+            ->orderBy('created_at', 'desc')
             ->paginate(2);
+
         return view('organisateur.reservations', ['reservations' => $eventReservations]);
     }
+
+
 
 
 
@@ -46,31 +53,29 @@ class ReservationController extends Controller
     public function createReservation($eventId)
     {
         $evenement = Evenement::findOrFail($eventId);
-        // dd($eventId);
-        if ($evenement->mode === 'Automatique' && $evenement->totalPlaces > 0) {
+
+        if ($evenement->totalPlaces > 0) {
+            if ($evenement->mode === 'Automatique') {
+                $nombrePlace = $this->getNextPlaceNumber($evenement);
+                $evenement->decrement('totalPlaces');
+            } else {
+
+                $nombrePlace = 0;
+            }
+
             Reservation::create([
                 'titre' => $evenement->titre,
                 'date' => now(),
-                'statut' => 'Reserved',
-                'nombrePlace' => $this->getNextPlaceNumber($evenement),
+                'statut' => ($evenement->mode === 'Automatique') ? 'Reserved' : 'Pending',
+                'nombrePlace' => $nombrePlace,
                 'evenement_id' => $evenement->id,
                 'user_id' => auth()->id(),
             ]);
-            $evenement->decrement('totalPlaces');
-        } else {
-            if ($evenement->mode === 'Manuelle' && $evenement->totalPlaces > 0) {
-                Reservation::create([
-                    'titre' => $evenement->titre,
-                    'date' => now(),
-                    'statut' => 'Pending',
-                    'nombrePlace' => null,
-                    'evenement_id' => $evenement->id,
-                    'user_id' => auth()->id(),
-                ]);
-            }
         }
+
         return redirect()->route('utilisateurEvent');
     }
+
 
     private function getNextPlaceNumber($evenement)
     {

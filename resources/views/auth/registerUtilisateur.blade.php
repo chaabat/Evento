@@ -9,7 +9,6 @@
          <div class="w-full sm:max-w-md p-5 mx-auto">
              <form method="POST" action="{{ route('register.utilisateur') }}" enctype="multipart/form-data">
                  @csrf
-                 {{-- <input type="text" name="role" value="utilisateur" class="hidden"> --}}
                  <div class="flex justify-center items-center mb-4 space-x-6">
 
                      <label class="block ">

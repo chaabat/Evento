@@ -29,23 +29,19 @@ class AdminController extends Controller
             ->orderBy('evenements_count', 'desc')
             ->value('name');
 
-        // The name of the most active client (user with the most reservations)
         $mostActiveClient = User::role('utilisateur')
             ->withCount('reservations')
             ->orderBy('reservations_count', 'desc')
             ->value('name');
 
-        // The title of the event with the most reservations
         $eventWithMostReservations = Evenement::withCount('reservations')
             ->orderBy('reservations_count', 'desc')
             ->value('titre');
 
-        // The name of the category with the most events
         $mostUsedCategory = Categorie::withCount('events')
             ->orderBy('events_count', 'desc')
             ->value('name');
 
-        // Total count of events
         $eventCount = Evenement::count();
 
         return view('admin.dashboard', compact('organisateurCount', 'utilisateurCount', 'mostReservedEvent', 'eventCount', 'mostActiveOrganisateur', 'mostActiveClient', 'eventWithMostReservations', 'mostUsedCategory'));
@@ -112,15 +108,12 @@ class AdminController extends Controller
     {
         $organisateur = User::withTrashed()->findOrFail($id);
 
-        // Restore the user
         $organisateur->restore();
 
-        // Restore related events
         Evenement::withTrashed()
             ->where('user_id', $organisateur->id)
             ->restore();
 
-        // Restore related reservations
         Reservation::withTrashed()
             ->whereIn('evenement_id', function ($query) use ($organisateur) {
                 $query->select('id')->from('evenements')->where('user_id', $organisateur->id);

@@ -43,14 +43,20 @@ class EvenementController extends Controller
                 'lieu' => ['required', 'string', 'max:255'],
                 'totalPlaces' => 'required',
                 'price' => 'required',
-                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'mode' => ['required', 'string', 'in:automatique,manuelle'],
                 'categorie_id' => 'required',
             ]);
 
-            $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->move(public_path('images'), $fileName);
-            $picture = 'images/' . $fileName;
+          
+            if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
+                $fileName = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('images'), $fileName);
+                $picture = 'images/' . $fileName;
+            } else {
+            
+                $picture = null; 
+            }
 
             $user = auth()->user();
 
@@ -72,6 +78,7 @@ class EvenementController extends Controller
             dd($e->getMessage());
         }
     }
+
 
 
 
