@@ -32,7 +32,7 @@
                     <span class="p-2 bg-gray-50">
                         <img src="{{ asset('photos/date.png') }}" class="h-8" alt="">
                     </span>
-                    <input type="date" name="filterDate"
+                    <input type="date" name="filterDate" min="{{ now()->timezone('Africa/Casablanca')->format('Y-m-d') }}" max="{{ now()->timezone('Africa/Casablanca')->addMonth()->format('Y-m-d') }}"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 outline-none"
                         placeholder="Date d'evenment">
                 </div>

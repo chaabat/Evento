@@ -8,7 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UtilisateurController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,14 +28,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+require __DIR__ . '/auth.php';
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-require __DIR__ . '/auth.php';
-
 
 //admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -51,27 +49,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/organisateurs/{id}/delete', [AdminController::class, 'deleteOrganisateur'])->name('deleteOrganisateur');
     Route::get('/organisateurs/{id}/activate', [AdminController::class, 'activeOrganisateur'])->name('activateOrganisateur');
 
-
     Route::get('/evenments', [AdminController::class, 'evenments'])->name('evenments');
     Route::patch('/evenments/{event}', [AdminController::class, 'updateStatus'])->name('updateStatus');
     Route::delete('/evenments/{evenement}', [AdminController::class, 'deleteEvent'])->name('deleteEvent');
 });
 
-
-
 //utilisateur
 Route::middleware(['auth', 'role:utilisateur'])->group(function () {
     Route::get('/utilisateur', [UtilisateurController::class, 'index'])->name('utilisateur');
     Route::get('/events', [ReservationController::class, 'utilisateurEvent'])->name('utilisateurEvent');
-
     Route::get('/eventDetails/{id}', [ReservationController::class, 'showDetails'])->name('eventDetails');
     Route::post('/reservations/{eventId}', [ReservationController::class, 'createReservation'])->name('createReservation');
-
     Route::get('/generate-ticket/{reservation}/{event}', [ReservationController::class, 'generateTicket'])->name('generateTicket');
 });
-
-
-
 
 //organisateur
 Route::middleware(['auth', 'role:organisateur'])->group(function () {
@@ -80,8 +70,6 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::delete('/organisateur/{evenement}', [EvenementController::class, 'delete'])->name('deleteEvenement');
     Route::put('/organisateur-update', [EvenementController::class, 'updateEvent'])->name('updateEvenement');
     Route::get('/statistique', [OrganisateurController::class, 'statistique'])->name('statistique');
-
     Route::get('/reservation', [ReservationController::class, 'viewReservations'])->name('reservation');
-
     Route::patch('/update-reservation-statut/{reservationId}', [ReservationController::class, 'updateReservationStatus'])->name('updateReservationStatus');
 });
